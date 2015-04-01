@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>DRMC Automation-audit</title>
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+	<style type="text/css">
+		body { padding-top: 70px; }
+		.label-as-badge {
+    border-radius: 1em;
+    font-size: 15px;
+}
+	</style>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container-fluid">
+		    <!-- Brand and toggle get grouped for better mobile display -->
+		    <div class="navbar-header">
+		      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+		        <span class="sr-only">Toggle navigation</span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		      </button>
+		      <a class="navbar-brand" href="#">DRMC automation-audit</a>
+		    </div>
+
+		    <!-- Collect the nav links, forms, and other content for toggling -->
+		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		      <ul class="nav navbar-nav">
+<!-- 		        <li class="active"><a href="#">Transfer<span class="sr-only">(current)</span></a></li>
+ --><!-- 		        <li><a href="#">Ingest</a></li> -->
+		      </ul>
+		      
+		      <ul class="nav navbar-nav navbar-right">
+		      	<form class="navbar-form navbar-left" role="search">
+			        <div class="form-group">
+			          <input type="text" class="form-control" placeholder="Search">
+			        </div>
+			        <button type="submit" class="btn btn-default">Submit</button>
+		      	</form>
+		      </ul>
+		    </div><!-- /.navbar-collapse -->
+		  </div><!-- /.container-fluid -->
+	</nav>
+
+	<table class="table table-striped">
+	      <thead>
+	        <tr>
+	          <th>id</th>
+	          <th>Path</th>
+	          <th>Stage</th>
+	          <th>Status</th>
+	          <th>AIP UUID</th>
+	          <th>Binder status</th>
+	          <th>Source status</th>
+	          <th></th>
+	        </tr>
+	      </thead>
+	      <tbody>
+	        <tr class="danger">
+	          <th scope="row">93</th>
+	          <td>Brus_Günter---Die_Blumen_des_Bösen---800.2012---162238/800.2012.x1---198895---162238</td>
+	          <td>transfer</td>
+	          <td>FAILED</td>
+	          <td> </td>
+	          <td> </td>
+	          <td> </td>
+	          <td>
+				<div class="btn-group" role="group" aria-label="...">
+					<button type="button" class="btn btn-danger btn-xs">retry</button>
+				</div>
+	          </td>
+	        </tr>
+	        <tr class="danger">
+	          <th scope="row">202</th>
+	          <td>EXPORT_VALIE---CutsElements_of_Perception---547.2012---159676/547.2012.x2---198521---159676</td>
+	          <td>transfer</td>
+	          <td>FAILED</td>
+	          <td> </td>
+	          <td> </td>
+	          <td> </td>
+	          <td>
+				<div class="btn-group" role="group" aria-label="...">
+					<button type="button" class="btn btn-danger btn-xs">retry</button>
+				</div>
+	          </td>
+	        </tr>
+
+	        <tr class="danger">
+	          <th scope="row">254</th>
+	          <td>Fraser_Andrea---Reporting_From_Sao_Paulo_I'm_from_the_United_States---4.2011---143756/4.2011.x3---180838---143756</td>
+	          <td>transfer</td>
+	          <td>FAILED</td>
+	          <td> </td>
+	          <td> </td>
+	          <td> </td>
+	          <td>
+				<div class="btn-group" role="group" aria-label="...">
+					<button type="button" class="btn btn-danger btn-xs">retry</button>
+				</div>
+	          </td>
+	        </tr>
+	
+	        <tr>
+	          <th scope="row">5</th>
+	          <td>Abramovic_Marina---City_of_Angels---534.1984---118235/534.1984.x4---182809---118235</td>
+	          <td>ingest</td>
+	          <td>COMPLETE</td>
+	          <td>b266076a-2fa8-4598-9d41-ebe8407cb508</td>
+	          <td><span class="label label-success label-as-badge"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></span></td>
+	          <td> </td>
+	          <td>
+				<div class="btn-group" role="group" aria-label="...">
+					<button type="button" class="btn btn-warning btn-xs">mark source as deleted <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+				</div>
+	          </td>
+	        </tr>
+
+	        <tr class="success">
+	          <th scope="row">202</th>
+	          <td>Acconci_Vito---The_Red_Tapes---1302.1999---118495/1302.1999.a.x6---180041---118495</td>
+	          <td>ingest</td>
+	          <td>COMPLETE</td>
+	          <td>7cac10cd-118e-4129-bbb1-6cbfceccc0f7</td>
+	          <td><span class="label label-success label-as-badge"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></span></td>
+	          <td>Deleted 2015-04-01 15:08</td>
+	          <td>
+	          </td>
+	        </tr>
+
+	        <tr class="danger">
+	          <th scope="row">354</th>
+	          <td>Henrot_Camille---Grosse_Fatigue---1207.2013---175938/1207.2013.x7---233047---175938</td>
+	          <td>ingest</td>
+	          <td>COMPLETE</td>
+	          <td>3aa88e83-4010-415c-b46d-a0b179d33e60</td>
+	          <td><span class="label label-danger label-as-badge"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></span></td>
+	          <td></td>
+	          <td>
+				<div class="btn-group" role="group" aria-label="...">
+					<button type="button" class="btn btn-danger btn-xs">retry</button>
+				</div>
+	          </td>
+	        </tr>
+	        <tr class="success">
+	          <th scope="row">374</th>
+	          <td>Hocking_Ralph---Nude_Narratives---700.1990---120373/700.1990.x2---214693---120373</td>
+	          <td>ingest</td>
+	          <td>COMPLETE</td>
+	          <td>6ecab4de-c984-4f6e-ab22-0f5f9672b081</td>
+	          <td><span class="label label-success label-as-badge"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></span></td>
+	          <td>Deleted 2015-04-01 15:08</td>
+	          <td>
+	          </td>
+	        </tr>
+	        <tr class="success">
+	          <th scope="row">375</th>
+	          <td>Hocking_Ralph---Nude_Narratives---700.1990---120373/700.1990.x4---230709---120373</td>
+	          <td>ingest</td>
+	          <td>COMPLETE</td>
+	          <td>aba743a5-6827-4f5c-98da-35e4cfd62136</td>
+	          <td><span class="label label-success label-as-badge"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></span></td>
+	          <td>Deleted 2015-04-01 15:08</td>
+	          <td>
+	          </td>
+	        </tr>
+	        <tr class="success">
+	          <th scope="row">368</th>
+	          <td>Higgins_Dick---Mechanical_Music_No._2_Suiciding_Mechanical_Music_No._3_523_Minutes_for_Dick_Maxfield---FC4860---175302/FC4860.x2...</td>
+	          <td>ingest</td>
+	          <td>COMPLETE</td>
+	          <td>c4873571-a25f-4891-9f6c-b5161755cd8a</td>
+	          <td><span class="label label-success label-as-badge"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></span></td>
+	          <td>Deleted 2015-04-01 15:08</td>
+	          <td>
+	          </td>
+	        </tr>
+
+
+	      </tbody>
+	 </table>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  </body>
+</html>
