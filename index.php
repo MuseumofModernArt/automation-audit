@@ -1,3 +1,15 @@
+      <?php
+if (!isset($_SERVER['PHP_AUTH_USER'])) {
+    header('WWW-Authenticate: Basic realm="My Realm"');
+    header('HTTP/1.0 401 Unauthorized');
+    echo 'Text to send if user hits Cancel button';
+    exit;
+} else {
+    echo "<p>Hello {$_SERVER['PHP_AUTH_USER']}.</p>";
+    echo "<p>You entered {$_SERVER['PHP_AUTH_PW']} as your password.</p>";
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -50,12 +62,7 @@
  --><!-- 		        <li><a href="#">Ingest</a></li> -->
 		      </ul>
 		      <ul class="nav navbar-nav navbar-right">
-		      	<form class="navbar-form navbar-left" role="search">
-			        <div class="form-group">
-			          <input type="text" class="form-control" placeholder="Search">
-			        </div>
-			        <button type="submit" class="btn btn-default">Submit</button>
-		      	</form>
+		      	Logged in as: <?php echo "<p>Hello {$_SERVER['PHP_AUTH_USER']}.</p>"; ?>
 		      </ul>
 		    </div><!-- /.navbar-collapse -->
 		  </div><!-- /.container-fluid -->
