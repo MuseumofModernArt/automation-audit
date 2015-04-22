@@ -126,7 +126,7 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 				$storageservice = '<span class="label label-danger label-as-badge"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></span>';
 			}
 			$binderURL = 'http://drmc.museum.moma.org/api/aips/'.$uuid;
-			$binder_header = @get_headers($binderURL);
+			$binder_header = @get_headers($binderURL, false, $context);
 			if ($binder_header[0] == 'HTTP/1.1 200 OK') {
 				$bindergood = True;
 				$binderEndpoint = file_get_contents($binderURL, false, $context);
