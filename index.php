@@ -128,7 +128,7 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 			$binderURL = 'http://drmc.museum.moma.org/api/aips/'.$uuid;
 			$binderEndpoint = file_get_contents($binderURL, false, $context);
 			$binderjson = json_decode($binderEndpoint, true);
-			$binderstatus = $binderjson
+			$binderstatus = $binderjson;
 
 		// 	$binder_header = @get_headers($binderURL, false, $context);
 		// 	if ($binder_header[0] == 'HTTP/1.1 200 OK') {
@@ -142,7 +142,7 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 		// 		$binderstatus = $binder_header[0];
 		// 	};
 
-		// };
+		};
 
 		if ($ssgood and $status != "FAILED"){
 			$deletebutton = '<div class="btn-group" role="group" aria-label="...">
