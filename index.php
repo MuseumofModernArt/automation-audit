@@ -67,6 +67,13 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
     echo 'Sorry, you have to log in.';
     exit;
 } else {
+    $binderUsername = {$_SERVER['PHP_AUTH_USER']};
+    $binderPassword = {$_SERVER['PHP_AUTH_PW']};
+    $context = stream_context_create(array(
+    'http' => array(
+        'header'  => "Authorization: Basic " . base64_encode("$binderUsername:$binderPassword")
+    )
+));
 	$db = new SQLite3('transfers.db');
 	$query = $db->query('SELECT * FROM unit');
 	echo '<table class="table table-striped">
@@ -122,7 +129,7 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 			$binder_header = @get_headers($binderURL);
 			if ($binder_header[0] == 'HTTP/1.1 200 OK') {
 				$bindergood = True;
-				$binderEndpoint = file_get_contents($binderURL);
+				$binderEndpoint = file_get_contents($binderURL, false, $context);
 				$binderjson = json_decode($binderEndpoint, true);
 				$binderstatus = $binderjson;
 			}
