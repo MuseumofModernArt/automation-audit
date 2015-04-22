@@ -52,7 +52,7 @@
  --><!-- 		        <li><a href="#">Ingest</a></li> -->
 		      </ul>
 		      <ul class="nav navbar-nav navbar-right">
-		      	Logged in as: <?php echo "<p>Hello {$_SERVER['PHP_AUTH_USER']}.</p>"; ?>
+		      	Logged in as: <?php echo " {$_SERVER['PHP_AUTH_USER']}"; ?>
 		      </ul>
 		    </div><!-- /.navbar-collapse -->
 		  </div><!-- /.container-fluid -->
@@ -129,28 +129,17 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 			$binderEndpoint = @file_get_contents($binderURL, false, $context);
 			if ($binderEndpoint === FALSE) {
 				$binderstatus = '<span class="label label-danger label-as-badge"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></span>';
+				$bindergood = False;
 			}
 			else {
 				$binderjson = json_decode($binderEndpoint, true);
 				$binderstatus = '<span class="label label-success label-as-badge"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></span>';
+				$bindergood = True;
 			}
-			
-
-		// 	$binder_header = @get_headers($binderURL, false, $context);
-		// 	if ($binder_header[0] == 'HTTP/1.1 200 OK') {
-		// 		$bindergood = True;
-		// 		$binderEndpoint = file_get_contents($binderURL, false, $context);
-		// 		$binderjson = json_decode($binderEndpoint, true);
-		// 		$binderstatus = "yolo";
-		// 	}
-		// 	else {
-		// 		$bindergood = False;
-		// 		$binderstatus = $binder_header[0];
-		// 	};
 
 		};
 
-		if ($ssgood and $status != "FAILED"){
+		if ($ssgood and $bindergood and $status != "FAILED"){
 			$deletebutton = '<div class="btn-group" role="group" aria-label="...">
 	                        <button type="button" class="btn btn-warning btn-xs">mark source as deleted <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
 	                </div>';
