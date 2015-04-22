@@ -126,9 +126,15 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 				$storageservice = '<span class="label label-danger label-as-badge"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></span>';
 			}
 			$binderURL = 'http://drmc.museum.moma.org/api/aips/'.$uuid;
-			$binderEndpoint = file_get_contents($binderURL, false, $context);
-			$binderjson = json_decode($binderEndpoint, true);
-			$binderstatus = $binderjson;
+			$binderEndpoint = @file_get_contents($binderURL, false, $context);
+			if ($binderEndpoint === FALSE) {
+				$binderstatus = '<span class="label label-danger label-as-badge"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></span>';
+			}
+			else {
+				$binderjson = json_decode($binderEndpoint, true);
+				$binderstatus = '<span class="label label-success label-as-badge"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></span>';
+			}
+			
 
 		// 	$binder_header = @get_headers($binderURL, false, $context);
 		// 	if ($binder_header[0] == 'HTTP/1.1 200 OK') {
