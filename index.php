@@ -130,19 +130,19 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 			$binderjson = json_decode($binderEndpoint, true);
 			$binderstatus = $binderjson
 
-			// $binder_header = @get_headers($binderURL, false, $context);
-			// if ($binder_header[0] == 'HTTP/1.1 200 OK') {
-			// 	$bindergood = True;
-			// 	$binderEndpoint = file_get_contents($binderURL, false, $context);
-			// 	$binderjson = json_decode($binderEndpoint, true);
-			// 	$binderstatus = "yolo";
-			// }
-			// else {
-			// 	$bindergood = False;
-			// 	$binderstatus = $binder_header[0];
-			// };
+		// 	$binder_header = @get_headers($binderURL, false, $context);
+		// 	if ($binder_header[0] == 'HTTP/1.1 200 OK') {
+		// 		$bindergood = True;
+		// 		$binderEndpoint = file_get_contents($binderURL, false, $context);
+		// 		$binderjson = json_decode($binderEndpoint, true);
+		// 		$binderstatus = "yolo";
+		// 	}
+		// 	else {
+		// 		$bindergood = False;
+		// 		$binderstatus = $binder_header[0];
+		// 	};
 
-		};
+		// };
 
 		if ($ssgood and $status != "FAILED"){
 			$deletebutton = '<div class="btn-group" role="group" aria-label="...">
