@@ -1,14 +1,4 @@
-      <?php
-if (!isset($_SERVER['PHP_AUTH_USER'])) {
-    header('WWW-Authenticate: Basic realm="My Realm"');
-    header('HTTP/1.0 401 Unauthorized');
-    echo 'Text to send if user hits Cancel button';
-    exit;
-} else {
-    echo "<p>Hello {$_SERVER['PHP_AUTH_USER']}.</p>";
-    echo "<p>You entered {$_SERVER['PHP_AUTH_PW']} as your password.</p>";
-}
-?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -69,94 +59,100 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 	</nav>
 
 
-<?php
 
-$db = new SQLite3('transfers.db');
-$query = $db->query('SELECT * FROM unit');
-echo '<table class="table table-striped">
-	      <thead>
-	        <tr>
-	          <th>id</th>
-	          <th>Path</th>
-	          <th>Stage</th>
-	          <th>Status</th>
-	          <th>AIP UUID</th>
-	          <th>Storage Service</th>
-	          <th>Binder</th>
-	          <th>Source deletion status</th>
-	          <th></th>
-	        </tr>
-	      </thead>
-	      <tbody>';
+      <?php
+if (!isset($_SERVER['PHP_AUTH_USER'])) {
+    header('WWW-Authenticate: Basic realm="My Realm"');
+    header('HTTP/1.0 401 Unauthorized');
+    echo 'Sorry, you have to log in.';
+    exit;
+} else {
+	$db = new SQLite3('transfers.db');
+	$query = $db->query('SELECT * FROM unit');
+	echo '<table class="table table-striped">
+		      <thead>
+		        <tr>
+		          <th>id</th>
+		          <th>Path</th>
+		          <th>Stage</th>
+		          <th>Status</th>
+		          <th>AIP UUID</th>
+		          <th>Storage Service</th>
+		          <th>Binder</th>
+		          <th>Source deletion status</th>
+		          <th></th>
+		        </tr>
+		      </thead>
+		      <tbody>';
 
-while ($row = $query->fetchArray()) {
-	$id = $row[0];
-	$uuid = $row[1];
-	$path = $row[2];
-	$unitType = $row[3];
-	$status = $row[4];
-	$microservice = $row[5];
-	$current = $row[6];
-	$rowcolor = "";
-	$storageservice = "";
-	$deletebutton = "";
-	$ssgood = False;
-	if ($status == "FAILED" or $status == "REJECTED"){
-		$rowcolor = "danger";
-	};
-
-	/* if uuid is not empty, ping SS API and Binder API  */
-	if (strlen(trim($uuid)) > 0){
-		$ssUrl = 'http://archivematica.museum.moma.org:8000/api/v2/file/'.$uuid.'/?format=json';
-		$url_header = @get_headers($ssUrl);
-		if ($url_header[0] == 'HTTP/1.1 200 OK') {
-			$ssgood = True;
-			$ssendpoint = file_get_contents($ssUrl);
-			$jsonresult = json_decode($ssendpoint, true);
-			$storageserviceuuid = $jsonresult['uuid'];
-			if ($storageserviceuuid == $uuid){
-				$storageservice = '<span class="label label-success label-as-badge"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></span>';
-			};
-		}
-		else  {
-			$ssgood = False;
-			$storageservice = '<span class="label label-danger label-as-badge"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></span>';
-		}
-		$binderURL = 'http://drmc.museum.moma.org/api/aips/'.$uuid;
-		$binder_header = @get_headers($binderURL);
-		if ($binder_header[0] == 'HTTP/1.1 200 OK') {
-			$bindergood = True;
-			$binderEndpoint = file_get_contents($binderURL);
-			$binderjson = json_decode($binderEndpoint, true);
-			$binderstatus = $binderjson;
-		}
-		else {
-			$bindergood = False;
-			$binderstatus = $binder_header[0];
+	while ($row = $query->fetchArray()) {
+		$id = $row[0];
+		$uuid = $row[1];
+		$path = $row[2];
+		$unitType = $row[3];
+		$status = $row[4];
+		$microservice = $row[5];
+		$current = $row[6];
+		$rowcolor = "";
+		$storageservice = "";
+		$deletebutton = "";
+		$ssgood = False;
+		if ($status == "FAILED" or $status == "REJECTED"){
+			$rowcolor = "danger";
 		};
 
+		/* if uuid is not empty, ping SS API and Binder API  */
+		if (strlen(trim($uuid)) > 0){
+			$ssUrl = 'http://archivematica.museum.moma.org:8000/api/v2/file/'.$uuid.'/?format=json';
+			$url_header = @get_headers($ssUrl);
+			if ($url_header[0] == 'HTTP/1.1 200 OK') {
+				$ssgood = True;
+				$ssendpoint = file_get_contents($ssUrl);
+				$jsonresult = json_decode($ssendpoint, true);
+				$storageserviceuuid = $jsonresult['uuid'];
+				if ($storageserviceuuid == $uuid){
+					$storageservice = '<span class="label label-success label-as-badge"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></span>';
+				};
+			}
+			else  {
+				$ssgood = False;
+				$storageservice = '<span class="label label-danger label-as-badge"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></span>';
+			}
+			$binderURL = 'http://drmc.museum.moma.org/api/aips/'.$uuid;
+			$binder_header = @get_headers($binderURL);
+			if ($binder_header[0] == 'HTTP/1.1 200 OK') {
+				$bindergood = True;
+				$binderEndpoint = file_get_contents($binderURL);
+				$binderjson = json_decode($binderEndpoint, true);
+				$binderstatus = $binderjson;
+			}
+			else {
+				$bindergood = False;
+				$binderstatus = $binder_header[0];
+			};
+
+		};
+
+		if ($ssgood and $status != "FAILED"){
+			$deletebutton = '<div class="btn-group" role="group" aria-label="...">
+	                        <button type="button" class="btn btn-warning btn-xs">mark source as deleted <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+	                </div>';
+		};
+
+	echo '<tr class="'.$rowcolor.'">
+		<th>'.$id.'</th>
+		<td>'.$path.'</td>
+		<td>'.$unitType.'</td>
+		<td>'.$status.'</td>
+		<td>'.$uuid.'</td>
+		<td>'.$storageservice.'</td>
+		<td>'.$binderstatus.'</td>
+		<td></td>
+		<td>'.$deletebutton.'</td>
+	';
+
+
+
 	};
-
-	if ($ssgood and $status != "FAILED"){
-		$deletebutton = '<div class="btn-group" role="group" aria-label="...">
-                        <button type="button" class="btn btn-warning btn-xs">mark source as deleted <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
-                </div>';
-	};
-
-echo '<tr class="'.$rowcolor.'">
-	<th>'.$id.'</th>
-	<td>'.$path.'</td>
-	<td>'.$unitType.'</td>
-	<td>'.$status.'</td>
-	<td>'.$uuid.'</td>
-	<td>'.$storageservice.'</td>
-	<td>'.$binderstatus.'</td>
-	<td></td>
-	<td>'.$deletebutton.'</td>
-';
-
-
-
-};
-
+}
 ?>
