@@ -2,6 +2,29 @@
 if (!isset($_SERVER['PHP_AUTH_USER'])) {
     header('WWW-Authenticate: Basic realm="My Realm"');
     header('HTTP/1.0 401 Unauthorized');
+    echo 'Text to send if user hits Cancel button';
+    exit;
+} else {
+    $binderUsername = $_SERVER['PHP_AUTH_USER'];
+    $binderPassword = $_SERVER['PHP_AUTH_PW'];
+    $context = stream_context_create(array(
+    'http' => array(
+        'header'  => "Authorization: Basic " . base64_encode("$binderUsername:$binderPassword")
+    )
+    echo "<p>Hello ".$binderUsername;
+    echo "<p>You entered".$binderPassword ."as your password.</p>";
+
+}
+?>
+
+
+
+
+
+
+<!-- if (!isset($_SERVER['PHP_AUTH_USER'])) {
+    header('WWW-Authenticate: Basic realm="My Realm"');
+    header('HTTP/1.0 401 Unauthorized');
     echo 'Sorry, you have to log in.';
     exit;
 } else {
@@ -26,10 +49,10 @@ else {
     $bindergood = False;
     $binderstatus = $binder_header[0];
     echo "else";
+    echo $binder_header;
 };
 
-echo $binderstatus;
+echo $binderstatus; -->
 
 
-}
 
