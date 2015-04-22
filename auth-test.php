@@ -15,22 +15,25 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
     echo "<p>Hello ".$binderUsername;
     echo "<p>You entered".$binderPassword ."as your password.</p>";
     $binderURL = 'http://drmc.museum.moma.org/api/aips/12b99b5b-7149-4e23-8c4a-1e5c6d35a9e0';
-    $binder_header = @get_headers($binderURL, false, $context);
-    if ($binder_header[0] == 'HTTP/1.1 200 OK') {
-        $bindergood = True;
-        $binderEndpoint = file_get_contents($binderURL, false, $context);
-        $binderjson = json_decode($binderEndpoint, true);
-        $binderstatus = $binderjson;
-        echo "if";
-    }
-    else {
-        $bindergood = False;
-        $binderstatus = $binder_header[0];
-        echo "else";
-        echo $binder_header;
-    };
+    // $binder_header = @get_headers($binderURL, false, $context);
+    $binderEndpoint = file_get_contents($binderURL, false, $context);
+    var_dump($binderEndpoint);
 
-}
+//     if ($binder_header[0] == 'HTTP/1.1 200 OK') {
+//         $bindergood = True;
+//         $binderEndpoint = file_get_contents($binderURL, false, $context);
+//         $binderjson = json_decode($binderEndpoint, true);
+//         $binderstatus = $binderjson;
+//         echo "if";
+//     }
+//     else {
+//         $bindergood = False;
+//         $binderstatus = $binder_header[0];
+//         echo "else";
+//         echo $binder_header;
+//     };
+
+// }
 
 
 ?>
