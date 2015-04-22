@@ -131,7 +131,7 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 				$bindergood = True;
 				$binderEndpoint = file_get_contents($binderURL, false, $context);
 				$binderjson = json_decode($binderEndpoint, true);
-				$binderstatus = $binderjson;
+				$binderstatus = "yolo";
 			}
 			else {
 				$bindergood = False;
