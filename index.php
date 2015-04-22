@@ -67,8 +67,8 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
     echo 'Sorry, you have to log in.';
     exit;
 } else {
-    $binderUsername = {$_SERVER['PHP_AUTH_USER']};
-    $binderPassword = {$_SERVER['PHP_AUTH_PW']};
+    $binderUsername = $_SERVER['PHP_AUTH_USER'];
+    $binderPassword = $_SERVER['PHP_AUTH_PW'];
     $context = stream_context_create(array(
     'http' => array(
         'header'  => "Authorization: Basic " . base64_encode("$binderUsername:$binderPassword")
