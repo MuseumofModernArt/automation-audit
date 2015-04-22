@@ -11,6 +11,7 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
     'http' => array(
         'header'  => "Authorization: Basic " . base64_encode("$binderUsername:$binderPassword")
     )
+));
     echo "<p>Hello ".$binderUsername;
     echo "<p>You entered".$binderPassword ."as your password.</p>";
 
