@@ -33,8 +33,7 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 //         echo $binder_header;
 //     };
 
-// }
+}
 
 
 ?>
-
