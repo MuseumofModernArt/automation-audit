@@ -130,6 +130,7 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 			if ($binderEndpoint === FALSE) {
 				$binderstatus = '<span class="label label-danger label-as-badge"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></span>';
 				$bindergood = False;
+				$rowcolor = "danger";
 			}
 			else {
 				$binderjson = json_decode($binderEndpoint, true);
