@@ -20,10 +20,12 @@ if ($binder_header[0] == 'HTTP/1.1 200 OK') {
     $binderEndpoint = file_get_contents($binderURL, false, $context);
     $binderjson = json_decode($binderEndpoint, true);
     $binderstatus = $binderjson;
+    echo "if";
 }
 else {
     $bindergood = False;
     $binderstatus = $binder_header[0];
+    echo "else";
 };
 
 echo $binderstatus;

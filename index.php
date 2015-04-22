@@ -135,7 +135,7 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 			}
 			else {
 				$bindergood = False;
-				$binderstatus = $binder_header;
+				$binderstatus = $binder_header[0];
 			};
 
 		};
