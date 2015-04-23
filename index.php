@@ -105,6 +105,7 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 		$deletebutton = "";
 		$ssgood = False;
 		$bindergood = False;
+		$binderstatus = "";
 		if ($status == "FAILED" or $status == "REJECTED"){
 			$rowcolor = "danger";
 		};
