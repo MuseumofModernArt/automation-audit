@@ -1,4 +1,16 @@
+<!--
 
+TODO:
+
+1. add y/n (int) deleted column to transfers.db
+2. add date deleted column to transfers.db
+
+ALTER TABLE transfers.db unit ADD COLUMN INTEGER
+ALTER TABLE transfers.db unit ADD COLUMN TEXT
+
+
+
+-->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -148,6 +160,9 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 	                </div>';
 		};
 
+		date_default_timezone_set('America/New_York');
+		$date = date('m/d/Y h:i:s a', time());
+
 	echo '<tr class="'.$rowcolor.'">
 		<th>'.$id.'</th>
 		<td>'.$path.'</td>
@@ -156,7 +171,7 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 		<td>'.$uuid.'</td>
 		<td>'.$storageservice.'</td>
 		<td>'.$binderstatus.'</td>
-		<td></td>
+		<td>'.$date.'</td>
 		<td>'.$deletebutton.'</td>
 	';
 
