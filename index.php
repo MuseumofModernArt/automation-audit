@@ -104,6 +104,7 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 		$storageservice = "";
 		$deletebutton = "";
 		$ssgood = False;
+		$bindergood = False;
 		if ($status == "FAILED" or $status == "REJECTED"){
 			$rowcolor = "danger";
 		};
