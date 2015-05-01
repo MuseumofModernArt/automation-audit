@@ -10,7 +10,7 @@ $datedel = date('m/d/Y h:i:s a', time());
 
 function transfer_rm($id){
 	$db = new SQLite3('transfers.db');
-	$db->exec('UPDATE unit SET dateDeletedgood=$datedel WHERE uuid=$uuid');
+	$db->exec('UPDATE unit SET dateDeletedgood="$datedel" WHERE uuid="$uuid"');
 }
 
 
