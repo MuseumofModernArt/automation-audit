@@ -25,6 +25,8 @@ The user is recorded in "deletedBy"
 	<!-- Optional theme -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
 
+	<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
 	<style type="text/css">
 		body { padding-top: 70px; }
 		.label-as-badge {
