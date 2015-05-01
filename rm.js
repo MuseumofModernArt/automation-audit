@@ -9,4 +9,5 @@ $('.rm').click(
         //     }
         // });
         $(this).hide();
+        $(this).parent().html("deleted on 1234 by Ben");
     });
