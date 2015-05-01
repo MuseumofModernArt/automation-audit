@@ -160,8 +160,7 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 	                </div>';
 		};
 
-		date_default_timezone_set('America/New_York');
-		$date = date('m/d/Y h:i:s a', time());
+		
 
 	echo '<tr class="'.$rowcolor.'">
 		<th>'.$id.'</th>
@@ -171,7 +170,6 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 		<td>'.$uuid.'</td>
 		<td>'.$storageservice.'</td>
 		<td>'.$binderstatus.'</td>
-		<td>'.$date.'</td>
 		<td>'.$deletebutton.'</td>
 	';
 
