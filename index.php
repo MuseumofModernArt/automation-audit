@@ -154,7 +154,7 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 
 		if ($ssgood and $bindergood and $status != "FAILED"){
 			$deletebutton = '<div class="btn-group" role="group" aria-label="...">
-	                        <button type="button" id="'.$uuid.'" class="btn btn-warning btn-xs">mark source as deleted <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+	                        <button type="button" id="'.$uuid.'" class="btn btn-warning btn-xs rm">mark source as deleted <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
 	                </div>';
 		};
 
@@ -178,3 +178,7 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 	};
 }
 ?>
+
+<script src="rm.js"></script>
+
+</body>
