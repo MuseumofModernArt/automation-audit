@@ -1,14 +1,12 @@
 <!--
 
-TODO:
+I added a new column to transfers.db called "dateDeleted" – this is where the date the transfer is deleted gets recorded
 
-1. add y/n (int) deleted column to transfers.db
-2. add date deleted column to transfers.db
+... I just realized that I accidentally created it with integer datatype – sqlite3 doesn't let you drop columns, so I made a new one...
 
-ALTER TABLE transfers.db unit ADD COLUMN INTEGER
-ALTER TABLE transfers.db unit ADD COLUMN TEXT
+use "dateDeletedgood"
 
-
+The user is recorded in "deletedBy"
 
 -->
 
@@ -156,7 +154,7 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 
 		if ($ssgood and $bindergood and $status != "FAILED"){
 			$deletebutton = '<div class="btn-group" role="group" aria-label="...">
-	                        <button type="button" class="btn btn-warning btn-xs">mark source as deleted <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+	                        <button type="button" id="'.$uuid.'" class="btn btn-warning btn-xs">mark source as deleted <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
 	                </div>';
 		};
 
