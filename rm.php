@@ -7,7 +7,6 @@ if (isset($_POST['uuid'])){
 	$db = new SQLite3('transfers.db');
 	$db->exec('UPDATE unit SET dateDeletedgood="'.$datedel.'" WHERE uuid="'.$uuid.'"');
 	print $uuid;
-	print $query;
 }
 
 
