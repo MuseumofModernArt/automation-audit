@@ -7,7 +7,7 @@ $('.rm').click(
             type: "POST",
             data: id,
             success: function(data){
-                alert(result);
+                alert(data);
             }
         });
         $(this).hide();
