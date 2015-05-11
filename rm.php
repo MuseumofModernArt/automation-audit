@@ -1,7 +1,7 @@
 <?php 
 
-if (isset($_POST)){
-	$uuid = $_POST;
+if (isset($_POST['uuid'])){
+	$uuid = $_POST['uuid'];
 	date_default_timezone_set('America/New_York');
 	$datedel = date('m/d/Y h:i:s a', time());
 	$db = new SQLite3('transfers.db');

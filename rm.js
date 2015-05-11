@@ -5,7 +5,7 @@ $('.rm').click(
         $.ajax({
             url: "rm.php",
             type: "POST",
-            data: id,
+            data: {"uuid": id},
             success: function(data){
                 alert(data);
             }
