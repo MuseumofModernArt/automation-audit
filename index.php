@@ -8,6 +8,15 @@ use "dateDeletedgood"
 
 The user is recorded in "deletedBy"
 
+
+current status:
+• the mark as deleted button is updating the DB
+
+todo:
+• check if has been deleted
+• if yes display timestamp
+• optimize page load time (currently all API calls happen before page load)
+
 -->
 
 <!DOCTYPE html>
