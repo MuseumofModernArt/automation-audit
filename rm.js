@@ -5,8 +5,9 @@ $('.rm').click(
         $.ajax({
             url: "rm.php",
             type: "POST",
-            data: {"delete": id},
+            data: id,
             success: function(data){
+                alert(result);
             }
         });
         $(this).hide();
