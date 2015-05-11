@@ -1,6 +1,7 @@
 $('.rm').click(
     function(){
         var id = $(this).attr('id');
+        console.log(id);
         $.ajax({
             url: "rm.php",
             type: "POST",
