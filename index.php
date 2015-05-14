@@ -102,8 +102,7 @@ transfers.db "unit" table columns
  		        <li><a href="#">Ingest</a></li> -->
 		      </ul>
 		      <ul class="nav navbar-nav navbar-right">
-		      	<li><a href=""><span class="glyphicon glyphicon-user" aria-hidden="true"></span><span class="user">
- <?php echo " {$_SERVER['PHP_AUTH_USER']}"; ?></span></a></li>
+		      	<li><a href=""><span class="glyphicon glyphicon-user" aria-hidden="true"></span><span class="user"><?php echo " {$_SERVER['PHP_AUTH_USER']}"; ?></span></a></li>
 		      </ul>
 		    </div><!-- /.navbar-collapse -->
 		  </div><!-- /.container-fluid -->
