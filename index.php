@@ -73,7 +73,6 @@ transfers.db "unit" table columns
     font-size: 15px;
 }
 	</style>
-<script src="rm.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -211,6 +210,8 @@ transfers.db "unit" table columns
 
 
 </body>
+<script src="rm.js"></script>
+
 
 
 
