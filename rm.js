@@ -11,4 +11,6 @@ $('.rm').click(
             }
         });
         $(this).hide();
+        $(this).parent().html("Deleted");
+
     });
