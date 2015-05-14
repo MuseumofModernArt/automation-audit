@@ -7,7 +7,7 @@ $('.rm').click(
             type: "POST",
             data: {"uuid": id},
             success: function(data){
-                alert(data);
+                console.log(data);
             }
         });
         $(this).hide();
