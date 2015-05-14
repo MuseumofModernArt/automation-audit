@@ -1,3 +1,10 @@
+$( document ).ready(function() {
+    var user = $('.user').innerHTML;
+    alert(user);
+});
+
+
+
 $('.rm').click(
     function(){
         var id = $(this).attr('id');
