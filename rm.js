@@ -12,6 +12,7 @@ $('.rm').click(
             }
         });
         $(this).hide();
+        alert(user);
         $(this).parent().html("Deleted");
 
     });
