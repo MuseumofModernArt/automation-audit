@@ -1,5 +1,5 @@
 $( document ).ready(function() {
-    var user = $('.user').innerHTML;
+    var user = $('.user').text();
     alert(user);
 });
 
