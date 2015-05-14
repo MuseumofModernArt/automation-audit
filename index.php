@@ -1,3 +1,20 @@
+<?php
+if (!isset($_SERVER['PHP_AUTH_USER'])) {
+    header('WWW-Authenticate: Basic realm="My Realm"');
+    header('HTTP/1.0 401 Unauthorized');
+    echo 'Sorry, you have to log in.';
+    exit;
+} else {
+    $binderUsername = $_SERVER['PHP_AUTH_USER'];
+    $binderPassword = $_SERVER['PHP_AUTH_PW'];
+    $context = stream_context_create(array(
+    'http' => array(
+        'header'  => "Authorization: Basic " . base64_encode("$binderUsername:$binderPassword")
+    )
+)); 
+
+?>
+
 <!--
 
 I added a new column to transfers.db called "dateDeleted" – this is where the date the transfer is deleted gets recorded
@@ -52,7 +69,6 @@ todo:
     <![endif]-->
   </head>
   <body>
-
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container-fluid">
 		    <!-- Brand and toggle get grouped for better mobile display -->
@@ -80,21 +96,7 @@ todo:
 	</nav>
 
 
-
-      <?php
-if (!isset($_SERVER['PHP_AUTH_USER'])) {
-    header('WWW-Authenticate: Basic realm="My Realm"');
-    header('HTTP/1.0 401 Unauthorized');
-    echo 'Sorry, you have to log in.';
-    exit;
-} else {
-    $binderUsername = $_SERVER['PHP_AUTH_USER'];
-    $binderPassword = $_SERVER['PHP_AUTH_PW'];
-    $context = stream_context_create(array(
-    'http' => array(
-        'header'  => "Authorization: Basic " . base64_encode("$binderUsername:$binderPassword")
-    )
-));
+<?php
 	$db = new SQLite3('transfers.db');
 	$query = $db->query('SELECT * FROM unit');
 	echo '<table class="table table-striped">
@@ -191,3 +193,7 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 <script src="rm.js"></script>
 
 </body>
+
+
+
+
