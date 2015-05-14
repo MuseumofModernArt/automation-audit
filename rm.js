@@ -8,9 +8,10 @@ $('.rm').click(
             data: {"uuid": id, "user": user},
             success: function(data){
                 console.log(data);
+                $(this).hide();
+                $(this).parent().html(data);
             }
         });
-        $(this).hide();
-        $(this).parent().html("Deleted");
+        
 
     });
