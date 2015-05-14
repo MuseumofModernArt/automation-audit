@@ -51,7 +51,7 @@ transfers.db "unit" table columns
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>DRMC Automation-audit</title>
+    <title>Automation-audit</title>
 
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
@@ -83,7 +83,7 @@ transfers.db "unit" table columns
 
 	if (isset($_GET['db'])){
 		$selectedDB = $_GET['db'];
-	};
+	}
 	else {
 		$selectedDB = 'transfers.db';
 	};
@@ -100,15 +100,15 @@ transfers.db "unit" table columns
 		        <span class="icon-bar"></span>
 		        <span class="icon-bar"></span>
 		      </button>
-		      <a class="navbar-brand" href="#">DRMC automation-audit</a>
+		      <a class="navbar-brand" href="#">Automation-audit</a>
 		    </div>
 
 		    <!-- Collect the nav links, forms, and other content for toggling -->
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		      <ul class="nav navbar-nav">
-				<li>Currently selected DB:<?php echo $selectedDB; ?> </li>
+				<li> </li>
 				<li class="dropdown">
-				  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">choose another db<span class="caret"></span></a>
+				  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">select database<span class="caret"></span></a>
 				  <ul class="dropdown-menu" role="menu">
 				  	<?php
 						foreach (glob("transfers.db*") as $filename) {
@@ -124,7 +124,7 @@ transfers.db "unit" table columns
 		    </div><!-- /.navbar-collapse -->
 		  </div><!-- /.container-fluid -->
 	</nav>
-
+<h2><?php echo $selectedDB; ?></h2>
 
 <?php
 	$db = new SQLite3($selectedDB);
