@@ -25,13 +25,8 @@ use "dateDeletedgood"
 
 The user is recorded in "deletedBy"
 
-
-current status:
-• the mark as deleted button is updating the DB
-
 todo:
-• check if "datedeleted" is empty
-• if no, display timestamp
+• get DB dropdown selector working
 • optimize page load time (currently all API calls happen before page load)
 
 
@@ -84,6 +79,17 @@ transfers.db "unit" table columns
     <![endif]-->
   </head>
   <body>
+<?php 
+
+	if (isset($_GET['db'])){
+		$selectedDB = $_GET['db'];
+	};
+	else {
+		$selectedDB = 'transfers.db';
+	};
+
+	?>
+
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container-fluid">
 		    <!-- Brand and toggle get grouped for better mobile display -->
@@ -100,12 +106,13 @@ transfers.db "unit" table columns
 		    <!-- Collect the nav links, forms, and other content for toggling -->
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		      <ul class="nav navbar-nav">
+				<li>Currently selected DB:<?php echo $selectedDB; ?> </li>
 				<li class="dropdown">
-				  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">choose db<span class="caret"></span></a>
+				  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">choose another db<span class="caret"></span></a>
 				  <ul class="dropdown-menu" role="menu">
 				  	<?php
 						foreach (glob("transfers.db*") as $filename) {
-						    echo "<li><a href='#'> $filename </a></li>";
+						    echo "<li><a href='?db=$filename'> $filename </a></li>";
 						}
 				  	?>
 				  </ul>
@@ -120,7 +127,7 @@ transfers.db "unit" table columns
 
 
 <?php
-	$db = new SQLite3('transfers.db');
+	$db = new SQLite3($selectedDB);
 	$query = $db->query('SELECT * FROM unit');
 	echo '<table class="table table-striped">
 		      <thead>
