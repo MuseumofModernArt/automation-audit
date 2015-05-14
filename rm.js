@@ -1,7 +1,7 @@
 $('.rm').click(
     function(){
         var id = $(this).attr('id');
-        var user = $('.user').html;
+        var user = $('.user').innerHTML;
         console.log(id);
         $.ajax({
             url: "rm.php",
