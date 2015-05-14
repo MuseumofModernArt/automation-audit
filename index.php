@@ -103,7 +103,7 @@ transfers.db "unit" table columns
 				  <ul class="dropdown-menu" role="menu">
 				  	<?php
 						foreach (glob("transfers.db*") as $filename) {
-						    echo "<li><a href=""> $filename </a></li>";
+						    echo "<li><a href='#'> $filename </a></li>";
 						}
 				  	?>
 				  </ul>
