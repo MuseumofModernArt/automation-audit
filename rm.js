@@ -1,15 +1,7 @@
-$( document ).ready(function() {
-    var user = $('.user').text();
-    alert(user);
-});
-
-
-
 $('.rm').click(
     function(){
         var id = $(this).attr('id');
-        var user = $('.user').innerHTML;
-        console.log(id);
+        var user = $('.user').text();
         $.ajax({
             url: "rm.php",
             type: "POST",
@@ -19,7 +11,6 @@ $('.rm').click(
             }
         });
         $(this).hide();
-        alert(user);
         $(this).parent().html("Deleted");
 
     });
