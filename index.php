@@ -137,6 +137,7 @@ transfers.db "unit" table columns
 		$microservice = $row[5];
 		$current = $row[6];
 		$dateDeleted = $row[7];
+		$deletedBy = $row[8];
 		$rowcolor = "";
 		$storageservice = "";
 		$deletebutton = "";
@@ -185,7 +186,7 @@ transfers.db "unit" table columns
 	                </div>';
 		}
 		elseif (strlen($dateDeleted) > 2) {
-			$deletebutton = 'Deleted '.$dateDeleted;
+			$deletebutton = 'Deleted by '.$deletedBy." on ".$dateDeleted;
 		};
 
 		
