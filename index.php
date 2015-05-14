@@ -30,9 +30,22 @@ current status:
 • the mark as deleted button is updating the DB
 
 todo:
-• check if has been deleted
-• if yes display timestamp
+• check if "datedeleted" is empty
+• if no, display timestamp
 • optimize page load time (currently all API calls happen before page load)
+
+
+transfers.db "unit" table columns
+
+0|id|INTEGER|1||1
+1|uuid|VARCHAR(36)|0||0
+2|path|BLOB|0||0
+3|unit_type|VARCHAR(10)|0||0
+4|status|VARCHAR(20)|0||0
+5|microservice|VARCHAR(50)|0||0
+6|current|BOOLEAN|0||0
+7|dateDeleted|text|0||0
+8|deletedBy|text|0||0
 
 -->
 
@@ -60,6 +73,7 @@ todo:
     font-size: 15px;
 }
 	</style>
+<script src="rm.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -86,10 +100,11 @@ todo:
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		      <ul class="nav navbar-nav">
 <!-- 		        <li class="active"><a href="#">Transfer<span class="sr-only">(current)</span></a></li>
- --><!-- 		        <li><a href="#">Ingest</a></li> -->
+ 		        <li><a href="#">Ingest</a></li> -->
 		      </ul>
 		      <ul class="nav navbar-nav navbar-right">
-		      	Logged in as: <?php echo " {$_SERVER['PHP_AUTH_USER']}"; ?>
+		      	<li><a href=""><span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+ <?php echo " {$_SERVER['PHP_AUTH_USER']}"; ?></a></li>
 		      </ul>
 		    </div><!-- /.navbar-collapse -->
 		  </div><!-- /.container-fluid -->
@@ -123,6 +138,7 @@ todo:
 		$status = $row[4];
 		$microservice = $row[5];
 		$current = $row[6];
+		$dateDeleted = $row[7];
 		$rowcolor = "";
 		$storageservice = "";
 		$deletebutton = "";
@@ -165,10 +181,13 @@ todo:
 
 		};
 
-		if ($ssgood and $bindergood and $status != "FAILED"){
+		if ($ssgood and $bindergood and $status != "FAILED" and strlen($dateDeleted) < 2){
 			$deletebutton = '<div class="btn-group" role="group" aria-label="...">
 	                        <button type="button" id="'.$uuid.'" class="btn btn-warning btn-xs rm">mark source as deleted <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
 	                </div>';
+		}
+		elseif (strlen($dateDeleted) > 2) {
+			$deletebutton = 'Deleted '.$dateDeleted;
 		};
 
 		
@@ -190,7 +209,6 @@ todo:
 }
 ?>
 
-<script src="rm.js"></script>
 
 </body>
 
