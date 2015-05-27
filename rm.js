@@ -11,3 +11,10 @@ $('.rm').click(
         $(this).hide();
         $(this).parent().html("deleted on 1234 by Ben");
     });
+
+$(document).mousemove(function(e) {
+    $('.logo').offset({
+        left: e.pageX,
+        top: e.pageY + 20
+    });
+});
