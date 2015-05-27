@@ -11,8 +11,6 @@ $( document ).ready(function() {
     $(document).click(function(){
             $('.exlposion').show().delay(1000).fadeOut(10); 
     });
-});
-
 
 $('.rm').click(
     function(){
@@ -30,3 +28,6 @@ $('.rm').click(
         });
 
 });
+
+});
+
