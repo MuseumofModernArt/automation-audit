@@ -89,7 +89,7 @@ transfers.db "unit" table columns
 
 	?>
 
-<img class="exlposion" src="explosion-1.gif" alt="explosion">
+<img class="exlposion" src="explosion-1.gif">
 
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container-fluid">

@@ -1,3 +1,19 @@
+$( document ).ready(function() {
+    $('.exlposion').hide();
+
+    $(document).mousemove(function(e) {
+        $('.exlposion').offset({
+            left: e.pageX -60,
+            top: e.pageY - 140
+        });
+    });
+
+    $(document).click(function(){
+            $('.exlposion').show().delay(1000).fadeOut(10); 
+    });
+});
+
+
 $('.rm').click(
     function(){
         var id = $(this).attr('id');
@@ -14,9 +30,3 @@ $('.rm').click(
         });
 
 
-$(document).mousemove(function(e) {
-    $('.logo').offset({
-        left: e.pageX,
-        top: e.pageY + 20
-    });
-});
