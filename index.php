@@ -1,3 +1,20 @@
+<?php
+if (!isset($_SERVER['PHP_AUTH_USER'])) {
+    header('WWW-Authenticate: Basic realm="My Realm"');
+    header('HTTP/1.0 401 Unauthorized');
+    echo 'Sorry, you have to log in.';
+    exit;
+} else {
+    $binderUsername = $_SERVER['PHP_AUTH_USER'];
+    $binderPassword = $_SERVER['PHP_AUTH_PW'];
+    $context = stream_context_create(array(
+    'http' => array(
+        'header'  => "Authorization: Basic " . base64_encode("$binderUsername:$binderPassword")
+    )
+)); 
+
+?>
+
 <!--
 
 I added a new column to transfers.db called "dateDeleted" – this is where the date the transfer is deleted gets recorded
@@ -8,6 +25,23 @@ use "dateDeletedgood"
 
 The user is recorded in "deletedBy"
 
+todo:
+• get DB dropdown selector working
+• optimize page load time (currently all API calls happen before page load)
+
+
+transfers.db "unit" table columns
+
+0|id|INTEGER|1||1
+1|uuid|VARCHAR(36)|0||0
+2|path|BLOB|0||0
+3|unit_type|VARCHAR(10)|0||0
+4|status|VARCHAR(20)|0||0
+5|microservice|VARCHAR(50)|0||0
+6|current|BOOLEAN|0||0
+7|dateDeleted|text|0||0
+8|deletedBy|text|0||0
+
 -->
 
 <!DOCTYPE html>
@@ -17,15 +51,16 @@ The user is recorded in "deletedBy"
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>DRMC Automation-audit</title>
+    <title>Automation-audit</title>
 
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 
 	<!-- Optional theme -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-
 	<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
 
 	<style type="text/css">
 		body { padding-top: 70px; }
@@ -43,6 +78,16 @@ The user is recorded in "deletedBy"
     <![endif]-->
   </head>
   <body>
+<?php 
+
+	if (isset($_GET['db'])){
+		$selectedDB = $_GET['db'];
+	}
+	else {
+		$selectedDB = 'transfers.db';
+	};
+
+	?>
 
 <img class="exlposion" src="explosion-1.gif" alt="explosion">
 
@@ -56,39 +101,34 @@ The user is recorded in "deletedBy"
 		        <span class="icon-bar"></span>
 		        <span class="icon-bar"></span>
 		      </button>
-		      <a class="navbar-brand" href="#">DRMC automation-audit</a>
+		      <a class="navbar-brand" href="#">Automation-audit</a>
 		    </div>
 
 		    <!-- Collect the nav links, forms, and other content for toggling -->
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		      <ul class="nav navbar-nav">
-<!-- 		        <li class="active"><a href="#">Transfer<span class="sr-only">(current)</span></a></li>
- --><!-- 		        <li><a href="#">Ingest</a></li> -->
+				<li> </li>
+				<li class="dropdown">
+				  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">select database<span class="caret"></span></a>
+				  <ul class="dropdown-menu" role="menu">
+				  	<?php
+						foreach (glob("transfers.db*") as $filename) {
+						    echo "<li><a href='?db=$filename'> $filename </a></li>";
+						}
+				  	?>
+				  </ul>
+				</li>
 		      </ul>
 		      <ul class="nav navbar-nav navbar-right">
-		      	Logged in as: <?php echo " {$_SERVER['PHP_AUTH_USER']}"; ?>
+		      	<li><a href=""><span class="glyphicon glyphicon-user" aria-hidden="true"></span><span class="user"><?php echo " {$_SERVER['PHP_AUTH_USER']}"; ?></span></a></li>
 		      </ul>
 		    </div><!-- /.navbar-collapse -->
 		  </div><!-- /.container-fluid -->
 	</nav>
+<h2><?php echo $selectedDB; ?></h2>
 
-
-
-      <?php
-if (!isset($_SERVER['PHP_AUTH_USER'])) {
-    header('WWW-Authenticate: Basic realm="My Realm"');
-    header('HTTP/1.0 401 Unauthorized');
-    echo 'Sorry, you have to log in.';
-    exit;
-} else {
-    $binderUsername = $_SERVER['PHP_AUTH_USER'];
-    $binderPassword = $_SERVER['PHP_AUTH_PW'];
-    $context = stream_context_create(array(
-    'http' => array(
-        'header'  => "Authorization: Basic " . base64_encode("$binderUsername:$binderPassword")
-    )
-));
-	$db = new SQLite3('transfers.db');
+<?php
+	$db = new SQLite3($selectedDB);
 	$query = $db->query('SELECT * FROM unit');
 	echo '<table class="table table-striped">
 		      <thead>
@@ -114,6 +154,8 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 		$status = $row[4];
 		$microservice = $row[5];
 		$current = $row[6];
+		$dateDeleted = $row[7];
+		$deletedBy = $row[8];
 		$rowcolor = "";
 		$storageservice = "";
 		$deletebutton = "";
@@ -156,10 +198,13 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 
 		};
 
-		if ($ssgood and $bindergood and $status != "FAILED"){
+		if ($ssgood and $bindergood and $status != "FAILED" and strlen($dateDeleted) < 2){
 			$deletebutton = '<div class="btn-group" role="group" aria-label="...">
 	                        <button type="button" id="'.$uuid.'" class="btn btn-warning btn-xs rm">mark source as deleted <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
 	                </div>';
+		}
+		elseif (strlen($dateDeleted) > 2) {
+			$deletebutton = 'Deleted by '.$deletedBy." on ".$dateDeleted;
 		};
 
 		
@@ -181,6 +226,11 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 }
 ?>
 
-<script src="rm.js"></script>
 
 </body>
+<script src="rm.js"></script>
+
+
+
+
+
