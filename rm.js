@@ -8,10 +8,6 @@ $( document ).ready(function() {
         });
     });
 
-    $(document).click(function(){
-            $('.exlposion').show().delay(1000).fadeOut(10); 
-    });
-
 $('.rm').click(
     function(){
         var id = $(this).attr('id');
@@ -24,6 +20,7 @@ $('.rm').click(
                 console.log(data);
                 $(this).hide();
                 $(this).parent().html(data);
+                $('.exlposion').show().delay(1000).fadeOut(10);
             }
         });
 
