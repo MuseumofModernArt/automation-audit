@@ -26,8 +26,12 @@ use "dateDeletedgood"
 The user is recorded in "deletedBy"
 
 todo:
-• get DB dropdown selector working
 • optimize page load time (currently all API calls happen before page load)
+• maybe the best way to do the above is to do the API calls asyncronously via jquery after page load?
+	• document ready, with loading animation in SS and Binder columns
+	• for each UUID, var = UUID
+	• make API calls to SS and Binder
+	• modify SS and Binder column accordingly
 
 
 transfers.db "unit" table columns
@@ -67,6 +71,7 @@ transfers.db "unit" table columns
 		.label-as-badge {
     border-radius: 1em;
     font-size: 15px;
+    
 }
 	</style>
 
@@ -165,7 +170,8 @@ transfers.db "unit" table columns
 		if ($status == "FAILED" or $status == "REJECTED"){
 			$rowcolor = "danger";
 		};
-
+		$db->close();
+		unset($db);
 		/* if uuid is not empty, ping SS API and Binder API  */
 		if (strlen(trim($uuid)) > 0){
 			$ssUrl = 'http://archivematica.museum.moma.org:8000/api/v2/file/'.$uuid.'/?format=json';
