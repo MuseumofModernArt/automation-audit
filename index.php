@@ -17,13 +17,10 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
 
 <!--
 
-I added a new column to transfers.db called "dateDeleted" – this is where the date the transfer is deleted gets recorded
+Using this tool requires adding two columns to transfers.db:
 
-... I just realized that I accidentally created it with integer datatype – sqlite3 doesn't let you drop columns, so I made a new one...
-
-use "dateDeletedgood"
-
-The user is recorded in "deletedBy"
+	ALTER TABLE unit ADD COLUMN dateDeleted text;
+	ALTER TABLE unit ADD COLUMN deletedBy text;
 
 todo:
 • optimize page load time (currently all API calls happen before page load)
@@ -34,7 +31,7 @@ todo:
 	• modify SS and Binder column accordingly
 
 
-transfers.db "unit" table columns
+transfers.db "unit" table columns should be
 
 0|id|INTEGER|1||1
 1|uuid|VARCHAR(36)|0||0
@@ -93,10 +90,10 @@ transfers.db "unit" table columns
 <?php 
 
 	if (isset($_GET['db'])){
-		$selectedDB = '/usr/lib/archivematica/automation-tools//transfers/'.$_GET['db'];
+		$selectedDB = '/usr/lib/archivematica/automation-tools/transfers/'.$_GET['db'];
 	}
 	else {
-		$selectedDB = '/usr/lib/archivematica/automation-tools//transfers/transfers.db';
+		$selectedDB = '/usr/lib/archivematica/automation-tools/transfers/transfers.db';
 	};
 
 	?>
