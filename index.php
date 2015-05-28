@@ -73,6 +73,13 @@ transfers.db "unit" table columns
     font-size: 15px;
 
 }
+
+	.exlposion{
+		position: fixed;
+		bottom: 0;
+		right: 0;
+		z-index: 999;
+	}
 	</style>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
