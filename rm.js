@@ -18,8 +18,8 @@ $('.rm').click(
             data: {"uuid": id, "user": user},
             success: function(data){
                 console.log(data);
-                $(this).hide();
-                $(this).parent().html(data);
+                $('.rm').hide();
+                $('.rm').parent().html(data);
                 $('.exlposion').show().delay(1000).fadeOut(10);
             }
         });
