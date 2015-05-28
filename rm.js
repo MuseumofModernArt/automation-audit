@@ -12,14 +12,15 @@ $('.rm').click(
     function(){
         var id = $(this).attr('id');
         var user = $('.user').text();
+        var button = this;
         $.ajax({
             url: "rm.php",
             type: "POST",
             data: {"uuid": id, "user": user},
             success: function(data){
                 console.log(data);
-                $('.rm').hide();
-                $('.rm').parent().html(data);
+                $(button).hide();
+                $(button).parent().html(data);
                 $('.exlposion').show().delay(1000).fadeOut(10);
             }
         });
