@@ -93,10 +93,10 @@ transfers.db "unit" table columns
 <?php 
 
 	if (isset($_GET['db'])){
-		$selectedDB = $_GET['db'];
+		$selectedDB = '/usr/lib/archivematica/automation-tools//transfers/'.$_GET['db'];
 	}
 	else {
-		$selectedDB = 'transfers.db';
+		$selectedDB = '/usr/lib/archivematica/automation-tools//transfers/transfers.db';
 	};
 
 	?>
@@ -124,7 +124,7 @@ transfers.db "unit" table columns
 				  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">select database<span class="caret"></span></a>
 				  <ul class="dropdown-menu" role="menu">
 				  	<?php
-						foreach (glob("transfers.db*") as $filename) {
+						foreach (glob("/usr/lib/archivematica/automation-tools//transfers/transfers.db*") as $filename) {
 						    echo "<li><a href='?db=$filename'> $filename </a></li>";
 						}
 				  	?>
