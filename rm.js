@@ -22,7 +22,7 @@ $('.rm').click(
                 $(button).hide();
                 $(button).parent().html(data);
                 $('.exlposion').show().delay(1000).fadeOut(10);
-                var buttonPosition = $(this).position();
+                var buttonPosition = $(button).position();
                 console.log(buttonPosition);
             }
         });
