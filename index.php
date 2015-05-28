@@ -43,6 +43,10 @@ transfers.db "unit" table columns should be
 7|dateDeleted|text|0||0
 8|deletedBy|text|0||0
 
+Permissions on the DB need to be:
+	-rwxrw-r- - 1 www-data root  74K May 28 10:56 transfers.db
+
+
 -->
 
 <!DOCTYPE html>
