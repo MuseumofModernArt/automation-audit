@@ -71,7 +71,7 @@ transfers.db "unit" table columns
 		.label-as-badge {
     border-radius: 1em;
     font-size: 15px;
-    
+
 }
 	</style>
 
@@ -170,8 +170,7 @@ transfers.db "unit" table columns
 		if ($status == "FAILED" or $status == "REJECTED"){
 			$rowcolor = "danger";
 		};
-		$db->close();
-		unset($db);
+
 		/* if uuid is not empty, ping SS API and Binder API  */
 		if (strlen(trim($uuid)) > 0){
 			$ssUrl = 'http://archivematica.museum.moma.org:8000/api/v2/file/'.$uuid.'/?format=json';
@@ -230,6 +229,9 @@ transfers.db "unit" table columns
 
 	};
 }
+
+		$db->close();
+		unset($db);
 ?>
 
 
