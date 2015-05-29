@@ -151,6 +151,7 @@ Permissions on the DB need to be:
 		          <th>Stage</th>
 		          <th>Status</th>
 		          <th>AIP UUID</th>
+		          <th>AIP size</th>
 		          <th>Storage Service</th>
 		          <th>Binder</th>
 		          <th>Source deletion status</th>
@@ -174,6 +175,7 @@ Permissions on the DB need to be:
 		$deletebutton = "";
 		$ssgood = False;
 		$bindergood = False;
+		$binderAIPsize = "n/a";
 		$binderstatus = "";
 		if ($status == "FAILED" or $status == "REJECTED"){
 			$rowcolor = "danger";
@@ -207,6 +209,7 @@ Permissions on the DB need to be:
 				$binderjson = json_decode($binderEndpoint, true);
 				$binderstatus = '<span class="label label-success label-as-badge"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></span>';
 				$bindergood = True;
+				$binderAIPsize = $binderjson['size'];
 			}
 
 		};
@@ -228,6 +231,7 @@ Permissions on the DB need to be:
 		<td>'.$unitType.'</td>
 		<td>'.$status.'</td>
 		<td>'.$uuid.'</td>
+		<td>'.$binderAIPsize.'</td>
 		<td>'.$storageservice.'</td>
 		<td>'.$binderstatus.'</td>
 		<td>'.$deletebutton.'</td>
