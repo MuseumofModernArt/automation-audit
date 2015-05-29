@@ -231,7 +231,7 @@ Permissions on the DB need to be:
 		<td>'.$unitType.'</td>
 		<td>'.$status.'</td>
 		<td>'.$uuid.'</td>
-		<td>'.$binderAIPsize.'</td>
+		<td><span class="converter">'.$binderAIPsize.'</span></td>
 		<td>'.$storageservice.'</td>
 		<td>'.$binderstatus.'</td>
 		<td>'.$deletebutton.'</td>
@@ -249,6 +249,12 @@ Permissions on the DB need to be:
 
 </body>
 <script src="rm.js"></script>
+<script src="jquery.filesize.min.js"></script>
+<script>
+$(function() {
+$(".converter").filesize();
+});
+</script>
 
 
 
