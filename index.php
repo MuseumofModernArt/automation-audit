@@ -176,6 +176,9 @@ Permissions on the DB need to be:
 		$ssgood = False;
 		$bindergood = False;
 		$binderAIPsize = "n/a";
+		$totalSize = "";
+		$remainingForDeletion = "";
+		$hasBeenDeleted = "";
 		$binderstatus = "";
 		if ($status == "FAILED" or $status == "REJECTED"){
 			$rowcolor = "danger";
@@ -210,6 +213,7 @@ Permissions on the DB need to be:
 				$binderstatus = '<span class="label label-success label-as-badge"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></span>';
 				$bindergood = True;
 				$binderAIPsize = $binderjson['size'];
+				$totalSize = $totalSize + $binderAIPsize;
 			}
 
 		};
@@ -218,9 +222,11 @@ Permissions on the DB need to be:
 			$deletebutton = '<div class="btn-group" role="group" aria-label="...">
 	                        <button type="button" id="'.$uuid.'" class="btn btn-warning btn-xs rm">mark source as deleted <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
 	                </div>';
+	        $remainingForDeletion = $remainingForDeletion+$binderAIPsize;
 		}
 		elseif (strlen($dateDeleted) > 2) {
 			$deletebutton = 'Deleted by '.$deletedBy." on ".$dateDeleted;
+			$hasBeenDeleted = $hasBeenDeleted+$binderAIPsize;
 		};
 
 		
@@ -244,6 +250,9 @@ Permissions on the DB need to be:
 
 		$db->close();
 		unset($db);
+		echo "Total automated data: <span class='converter'>".$totalSize."</span>";
+		echo "Stuff to delete: <span class='converter'>".$remainingForDeletion."</span>";
+		echo "Stuff already deleted: <span class='converter'>".$hasBeenDeleted."</span>"
 ?>
 
 
