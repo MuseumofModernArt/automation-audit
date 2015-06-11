@@ -115,8 +115,8 @@ yAxis = d3.svg.axis()
     .attr("transform", "translate(0," + (HEIGHT - MARGINS.bottom) + ")")
     .call(xAxis);
 
-    vis.append("svg:g")
-    .attr("transform", "translate(" +MARGINS.left) + ",0)")
+	vis.append("svg:g")
+    .attr("transform", "translate(" + (MARGINS.left) + ",0)")
     .call(yAxis);
 </script>
 
