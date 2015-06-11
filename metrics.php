@@ -68,7 +68,7 @@
 
 <?php
 	$db = new SQLite3($selectedDB);
-	$query = $db->query('SELECT * FROM unit');
+	$query = $db->query('SELECT * FROM counting');
 	while ($row = $query->fetchArray()) {
 		$date = $row[0];
 		$pre_ingest = $row[1];
