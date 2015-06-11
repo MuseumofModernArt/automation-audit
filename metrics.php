@@ -37,7 +37,7 @@
 
 
 <?php 
-	$selectedDB = '/usr/lib/archivematica/automation-tools/transfers/'
+	$selectedDB = '/home/archivesuser/moma-utils/pre-ingest-metrics/metrics.db'
 ?>
 
 	<nav class="navbar navbar-default navbar-fixed-top">
