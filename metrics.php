@@ -106,8 +106,17 @@ var vis = d3.select("#visualisation"),
     .scale(xScale),
   
 yAxis = d3.svg.axis()
-    .scale(yScale);
+    .scale(yScale)
+    .orient("left");
     vis.append("svg:g")
     .call(xAxis);
+
+    vis.append("svg:g")
+    .attr("transform", "translate(0," + (HEIGHT - MARGINS.bottom) + ")")
+    .call(xAxis);
+
+    vis.append("svg:g")
+    .attr("transform", "translate(" +MARGINS.left) + ",0)")
+    .call(yAxis);
 </script>
 
