@@ -33,7 +33,25 @@ path {
   fill: none;
 }
 
-.otherline{
+.pre_ingest{
+  stroke: orange;
+  stroke-width: 2;
+  fill: none;
+ }
+
+ .run_component{
+  stroke: blue;
+  stroke-width: 2;
+  fill: none;
+ }
+
+ .readyForIngest{
+  stroke: green;
+  stroke-width: 2;
+  fill: none;
+ }
+
+ .artworkBacklog{
   stroke: red;
   stroke-width: 2;
   fill: none;
@@ -102,10 +120,10 @@ path {
 		$readyForIngest = $row[3];
 		$artworkBacklog = $row[4];
 
-		$pre_ingest_data[] = array("Day" => $date, "Size" => $pre_ingest);
-		$run_component_data[] = array("Day" => $date, "Size" => $run_component);
-		$readyForIngest_data[] = array("Day" => $date, "Size" => $readyForIngest);
-		$artworkBacklog_data[] = array("Day" => $date, "Size" => $artworkBacklog);
+		$pre_ingest_data[] = array("date" => $date, "close" => $pre_ingest);
+		$run_component_data[] = array("date" => $date, "close" => $run_component);
+		$readyForIngest_data[] = array("date" => $date, "close" => $readyForIngest);
+		$artworkBacklog_data[] = array("date" => $date, "close" => $artworkBacklog);
 
 		};
 
@@ -157,21 +175,57 @@ var	svg = d3.select("body")
 		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
  
 // Get the data
-d3.csv("testdata.csv", function(error, data) {
-	data.forEach(function(d) {
+     var pre_ingest_data = <?php echo $pre_ingest_data; ?>;
+     var run_component_data = <?php echo $run_component_data; ?>;
+     var readyForIngest_data = <?php echo $readyForIngest_data; ?>;
+     var artworkBacklog_data = <?php echo $artworkBacklog_data; ?>;
+ 
+ 	//get data for pre-ingest
+	pre_ingest_data.forEach(function(d) {
 		d.date = parseDate(d.date);
 		d.close = +d.close;
 	});
- 
+
+	//get data for run_component
+	run_component_data.forEach(function(d) {
+		d.date = parseDate(d.date);
+		d.close = +d.close;
+	});
+
+	//get data for readyForIngest_data
+	readyForIngest_data.forEach(function(d) {
+		d.date = parseDate(d.date);
+		d.close = +d.close;
+	});
+
+	//get data for artworkBacklog_data
+	artworkBacklog_data.forEach(function(d) {
+		d.date = parseDate(d.date);
+		d.close = +d.close;
+	});
+
 	// Scale the range of the data
-	x.domain(d3.extent(data, function(d) { return d.date; }));
-	y.domain([0, d3.max(data, function(d) { return d.close; })]);
+	x.domain(d3.extent(pre_ingest_data, function(d) { return d.date; }));
+	y.domain([0, 1000]);
  
-	// Add the valueline path.
+	// draw pre-ingest
 	svg.append("path")	
-		.attr("class", "line")
-		.attr("d", valueline(data));
+		.attr("class", "pre_ingest")
+		.attr("d", valueline(pre_ingest_data));
  
+ 	// draw run_component
+	svg.append("path")
+		.attr("class", "run_component")
+		.attr("d", valueline(run_component_data));
+ 	// draw readyForIngest_data
+	svg.append("path")
+		.attr("class", "readyForIngest")
+		.attr("d", valueline(readyForIngest_data));
+ 	// draw artworkBacklog_data
+	svg.append("path")
+		.attr("class", "artworkBacklog")
+		.attr("d", valueline(artworkBacklog_data));
+
 	// Add the X Axis
 	svg.append("g")		
 		.attr("class", "x axis")
@@ -182,19 +236,7 @@ d3.csv("testdata.csv", function(error, data) {
 	svg.append("g")		
 		.attr("class", "y axis")
 		.call(yAxis);
- 
-});
 
-//get data for second line
-d3.csv("testdata2.csv", function(error, data) {
-	data.forEach(function(d) {
-		d.date = parseDate(d.date);
-		d.close = +d.close;
-	});
-	svg.append("path")
-		.attr("class", "otherline")
-		.attr("d", valueline(data));
-})
 
 </script>
 
