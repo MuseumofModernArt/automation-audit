@@ -77,6 +77,8 @@ path {
 
 
 <?php 
+	$command = escapeshellcmd('python /home/archivesuser/moma-utils/pre-ingest-metrics/metrics.py');
+	$output = shell_exec($command);
 	$selectedDB = '/home/archivesuser/moma-utils/pre-ingest-metrics/metrics.db'
 ?>
 
@@ -135,7 +137,7 @@ path {
 		// echo $date.$pre_ingest.$run_component.$readyForIngest.$artworkBacklog;
 		// add these to the JSON for the D3 chart
 
-	
+	echo $output;
 ?>
 
 </body>
