@@ -77,7 +77,7 @@ path {
 
 
 <?php 
-	$command = escapeshellcmd('python /home/archivesuser/moma-utils/pre-ingest-metrics/metrics.py');
+	$command = escapeshellcmd('/home/archivesuser/moma-utils/pre-ingest-metrics/metrics.py');
 	$output = shell_exec($command);
 	$selectedDB = '/home/archivesuser/moma-utils/pre-ingest-metrics/metrics.db'
 ?>
