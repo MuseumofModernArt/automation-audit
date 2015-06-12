@@ -18,11 +18,33 @@
 
 
 	<style type="text/css">
-		body { padding-top: 70px; }
+		body { padding-top: 70px; 
+			margin: 50px;}
 		.label-as-badge {
     border-radius: 1em;
     font-size: 15px;
 
+}
+
+
+path { 
+  stroke: black;
+  stroke-width: 2;
+  fill: none;
+}
+
+.otherline{
+  stroke: red;
+  stroke-width: 2;
+  fill: none;
+ }
+ 
+.axis path,
+.axis line {
+	fill: none;
+	stroke: grey;
+	stroke-width: 1;
+	shape-rendering: crispEdges;
 }
 	</style>
 
@@ -37,7 +59,7 @@
 
 
 <?php 
-	$selectedDB = '/home/archivesuser/moma-utils/pre-ingest-metrics/metrics.db'
+	$selectedDB = 'metrics.db'
 ?>
 
 	<nav class="navbar navbar-default navbar-fixed-top">
@@ -50,7 +72,7 @@
 		        <span class="icon-bar"></span>
 		        <span class="icon-bar"></span>
 		      </button>
-		      <a class="navbar-brand" href="#">Automation-audit</a>
+		      <a class="navbar-brand" href="#">Media cons pre-ingest stats</a>
 		    </div>
 
 		    <!-- Collect the nav links, forms, and other content for toggling -->
@@ -64,59 +86,115 @@
 		    </div><!-- /.navbar-collapse -->
 		  </div><!-- /.container-fluid -->
 	</nav>
-<h2><?php echo $selectedDB; ?></h2>
 
 <?php
 	$db = new SQLite3($selectedDB);
 	$query = $db->query('SELECT * FROM counting');
+	$pre_ingest_data = array();
+	$run_component_data = array();
+	$readyForIngest_data = array();
+	$artworkBacklog_data = array();
+
 	while ($row = $query->fetchArray()) {
 		$date = $row[0];
 		$pre_ingest = $row[1];
 		$run_component = $row[2];
 		$readyForIngest = $row[3];
 		$artworkBacklog = $row[4];
-		echo var_dump($row);
+
+		$pre_ingest_data[] = array("Day" => $date, "Size" => $pre_ingest);
+		$run_component_data[] = array("Day" => $date, "Size" => $run_component);
+		$readyForIngest_data[] = array("Day" => $date, "Size" => $readyForIngest);
+		$artworkBacklog_data[] = array("Day" => $date, "Size" => $artworkBacklog);
+
+		};
+
+	$pre_ingest_data = json_encode($pre_ingest_data);
+	$run_component_data = json_encode($run_component_data);
+	$readyForIngest_data = json_encode($readyForIngest_data);
+	$artworkBacklog_data = json_encode($artworkBacklog_data);
+
+		// echo $date.$pre_ingest.$run_component.$readyForIngest.$artworkBacklog;
 		// add these to the JSON for the D3 chart
 
-	};
-
-
-	
 	
 ?>
-
-<svg id="visualisation" width="1000" height="500"></svg>
 
 </body>
 
 <script type="text/javascript">
-var vis = d3.select("#visualisation"),
-    WIDTH = 1000,
-    HEIGHT = 500,
-    MARGINS = {
-        top: 20,
-        right: 20,
-        bottom: 20,
-        left: 50
-    },
 
-    xScale = d3.scale.linear().range([MARGINS.left, WIDTH - MARGINS.right]).domain([2000,2010]),
-    yScale = d3.scale.linear().range([HEIGHT - MARGINS.top, MARGINS.bottom]).domain([134,215]),
-    xAxis = d3.svg.axis()
-    .scale(xScale),
+// set dimensions of the graph
+
+var margin = { top: 30, right: 20, bottom: 30, left: 50 },
+    width = 1200 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+// parse the date format
+var	parseDate = d3.time.format("%Y-%m-%d").parse;
+
+// set the ranges
+var x = d3.time.scale().range([0, width]);
+var y = d3.scale.linear().range([height, 0]);
+
+// define the axis
+var xAxis = d3.svg.axis().scale(x)
+	.orient("bottom").ticks(5);
+var yAxis = d3.svg.axis().scale(y)
+	.orient("left").ticks(5);
   
-yAxis = d3.svg.axis()
-    .scale(yScale)
-    .orient("left");
-    vis.append("svg:g")
-    .call(xAxis);
+// Define the line
+var	valueline = d3.svg.line()
+	.x(function(d) { return x(d.date); })
+	.y(function(d) { return y(d.close); });
+    
+// Adds the svg canvas
+var	svg = d3.select("body")
+	.append("svg")
+		.attr("width", width + margin.left + margin.right)
+		.attr("height", height + margin.top + margin.bottom)
+	.append("g")
+		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+ 
+// Get the data
+d3.csv("testdata.csv", function(error, data) {
+	data.forEach(function(d) {
+		d.date = parseDate(d.date);
+		d.close = +d.close;
+	});
+ 
+	// Scale the range of the data
+	x.domain(d3.extent(data, function(d) { return d.date; }));
+	y.domain([0, d3.max(data, function(d) { return d.close; })]);
+ 
+	// Add the valueline path.
+	svg.append("path")	
+		.attr("class", "line")
+		.attr("d", valueline(data));
+ 
+	// Add the X Axis
+	svg.append("g")		
+		.attr("class", "x axis")
+		.attr("transform", "translate(0," + height + ")")
+		.call(xAxis);
+ 
+	// Add the Y Axis
+	svg.append("g")		
+		.attr("class", "y axis")
+		.call(yAxis);
+ 
+});
 
-    vis.append("svg:g")
-    .attr("transform", "translate(0," + (HEIGHT - MARGINS.bottom) + ")")
-    .call(xAxis);
+//get data for second line
+d3.csv("testdata2.csv", function(error, data) {
+	data.forEach(function(d) {
+		d.date = parseDate(d.date);
+		d.close = +d.close;
+	});
+	svg.append("path")
+		.attr("class", "otherline")
+		.attr("d", valueline(data));
+})
 
-	vis.append("svg:g")
-    .attr("transform", "translate(" + (MARGINS.left) + ",0)")
-    .call(yAxis);
 </script>
 
