@@ -64,6 +64,12 @@ path {
 	stroke-width: 1;
 	shape-rendering: crispEdges;
 }
+
+.legend rect {
+  fill:white;
+  stroke:black;
+  opacity:0.8;}
+
 	</style>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -74,12 +80,14 @@ path {
     <![endif]-->
   </head>
   <body>
+<script src="d3.legend.js"></script>
 
 
 <?php 
 	$command = escapeshellcmd('/home/archivesuser/moma-utils/pre-ingest-metrics/metrics.py');
 	$output = shell_exec($command);
-	$selectedDB = '/home/archivesuser/moma-utils/pre-ingest-metrics/metrics.db'
+	// $selectedDB = '/home/archivesuser/moma-utils/pre-ingest-metrics/metrics.db'
+	$selectedDB = 'metrics.db'
 ?>
 
 	<nav class="navbar navbar-default navbar-fixed-top">
@@ -152,6 +160,12 @@ var margin = { top: 30, right: 20, bottom: 30, left: 50 },
 // parse the date format
 var	parseDate = d3.time.format("%Y-%m-%d").parse;
 
+//colors (this is new)
+// Our color bands
+var color = d3.scale.ordinal()
+    .range(["#308fef", "#5fa9f3", "#1176db"]);
+
+
 // set the ranges
 var x = d3.time.scale().range([0, width]);
 var y = d3.scale.linear().range([height, 0]);
@@ -209,23 +223,29 @@ var	svg = d3.select("body")
 	x.domain(d3.extent(pre_ingest_data, function(d) { return d.date; }));
 	y.domain([0, 1000]);
  
+
+
 	// draw pre-ingest
 	svg.append("path")	
 		.attr("class", "pre_ingest")
-		.attr("d", valueline(pre_ingest_data));
+		.attr("d", valueline(pre_ingest_data))
+		.attr("data-legend",function(d) { return "Pre-ingest Staging"});
  
  	// draw run_component
 	svg.append("path")
 		.attr("class", "run_component")
-		.attr("d", valueline(run_component_data));
+		.attr("d", valueline(run_component_data))
+		.attr("data-legend",function(d) { return "Run Component"});
  	// draw readyForIngest_data
 	svg.append("path")
 		.attr("class", "readyForIngest")
-		.attr("d", valueline(readyForIngest_data));
+		.attr("d", valueline(readyForIngest_data))
+		.attr("data-legend",function(d) { return "Ready for ingest"});
  	// draw artworkBacklog_data
 	svg.append("path")
 		.attr("class", "artworkBacklog")
-		.attr("d", valueline(artworkBacklog_data));
+		.attr("d", valueline(artworkBacklog_data))
+		.attr("data-legend",function(d) { return "Artwork level backlog"});
 
 	// Add the X Axis
 	svg.append("g")		
@@ -237,6 +257,18 @@ var	svg = d3.select("body")
 	svg.append("g")		
 		.attr("class", "y axis")
 		.call(yAxis);
+  legend = svg.append("g")
+    .attr("class","legend")
+    .attr("transform","translate(50,30)")
+    .style("font-size","12px")
+    .call(d3.legend)
+
+  setTimeout(function() { 
+    legend
+      .style("font-size","20px")
+      .attr("data-style-padding",10)
+      .call(d3.legend)
+  },1000)
 
 
 </script>
