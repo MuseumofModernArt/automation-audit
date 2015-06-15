@@ -144,7 +144,7 @@ path {
 
 		// echo $date.$pre_ingest.$run_component.$readyForIngest.$artworkBacklog;
 		// add these to the JSON for the D3 chart
-
+	echo $output
 ?>
 
 </body>
