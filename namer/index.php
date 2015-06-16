@@ -44,7 +44,7 @@
 		        <span class="icon-bar"></span>
 		        <span class="icon-bar"></span>
 		      </button>
-		      <a class="navbar-brand" href="#">Automation-audit</a>
+		      <a class="navbar-brand" href="#">MoMA-utils</a>
 		    </div>
 
 		    <!-- Collect the nav links, forms, and other content for toggling -->
@@ -52,13 +52,9 @@
 		      <ul class="nav navbar-nav">
 				<li> </li>
 				<li class="dropdown">
-				  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">select database<span class="caret"></span></a>
+				  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">menu<span class="caret"></span></a>
 				  <ul class="dropdown-menu" role="menu">
-				  	<?php
-						foreach (glob("/usr/lib/archivematica/automation-tools/transfers/transfers.db*") as $filename) {
-						    echo "<li><a href='?db=$filename'> $filename </a></li>";
-						}
-				  	?>
+
 				  </ul>
 				</li>
 		      </ul>
@@ -69,19 +65,41 @@
 		  </div><!-- /.container-fluid -->
 	</nav>
 
+<div class='container-fluid'>
+
 <?php 
 
 	if (isset($_GET['objectnum'])){
 		$artwork = $_GET['objectnum'];
 		$url = file_get_contents('http://vmsqlsvcs.museum.moma.org/TMSAPI/TmsObjectSvc/TmsObjects.svc/GetTombstoneDataRest/Object/'.$artwork);
-		var_dump($url)
-		// $json = json_decode($url);
-		// $title = $json["GetTombstoneDataRestResult"]["Title"];
-		// echo $title;
-		echo $json;
+		$json = json_decode($url, true);
+		$title = $json["GetTombstoneDataRestResult"]["Title"];
+		$artist = $json["GetTombstoneDataRestResult"]["AlphaSort"];
+		$objectnum = $json["GetTombstoneDataRestResult"]["ObjectNumber"];
+		$objectid = $json["GetTombstoneDataRestResult"]["ObjectID"];
+		$components = json_decode($json["GetTombstoneDataRestResult"]["Components"], true);
+		$dirname = $artist."---".$title."---".$objectnum."---".$objectid;
+
+		$dirname = preg_replace('/\s+/', '_', $dirname);
+
+		print "<div class='well'><h1><span class='glyphicon glyphicon-folder-open' aria-hidden='true'></span>&nbsp;&nbsp;".$dirname."</h1></div>";
+
+		
+		foreach ($components as $component) {
+    		$componentNumber = $component['ComponentNumber'];
+    		$componentId = $component['ComponentID'];
+    		$componentFoldername = $componentNumber."---".$componentId."---".$objectid;
+    		echo "<div class='well col-md-offset-1'><h3><span class='glyphicon glyphicon-folder-open' aria-hidden='true'></span>&nbsp;&nbsp;".$componentFoldername."</h3></div>";
+		}
+
+
+		
 	}
 	else {
-		echo "Please enter an object number in the url with '?objectnum='";
+		echo "<h1>Please enter an object number in the url with '?objectnum='</h1>";
 	};
 
 	?>
+
+</div>
+</body>
