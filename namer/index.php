@@ -74,7 +74,8 @@
 	if (isset($_GET['objectnum'])){
 		$artwork = $_GET['objectnum'];
 		$url = file_get_contents('http://vmsqlsvcs.museum.moma.org/TMSAPI/TmsObjectSvc/TmsObjects.svc/GetTombstoneDataRest/Object/'.$artwork);
-		$json = json_decode($url);
+		var_dump($url)
+		// $json = json_decode($url);
 		// $title = $json["GetTombstoneDataRestResult"]["Title"];
 		// echo $title;
 		echo $json;
