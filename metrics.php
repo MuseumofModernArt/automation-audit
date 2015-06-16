@@ -86,12 +86,8 @@ path {
 <?php 
 	$command = escapeshellcmd('/home/archivesuser/moma-utils/pre-ingest-metrics/metrics.py');
 	$output = shell_exec($command);
-<<<<<<< HEAD
-	$selectedDB = '/www/var/automation-audit/metrics.db'
-=======
 	// $selectedDB = '/home/archivesuser/moma-utils/pre-ingest-metrics/metrics.db'
 	$selectedDB = 'metrics.db'
->>>>>>> origin/master
 ?>
 
 	<nav class="navbar navbar-default navbar-fixed-top">
@@ -181,7 +177,6 @@ var xAxis = d3.svg.axis().scale(x)
 var yAxis = d3.svg.axis().scale(y)
 	.orient("left").ticks(5);
   
-<<<<<<< Updated upstream
 // Define the line
 var	valueline = d3.svg.line()
 	.x(function(d) { return x(d.date); })
@@ -298,18 +293,5 @@ svg.append("text")
         .style("text-decoration", "underline")  
         .text("Number of Artworks in ingest queue");
 
-=======
-yAxis = d3.svg.axis()
-    .scale(yScale)
-    .orient("left");
-
-    vis.append("svg:g")
-    .attr("transform", "translate(0," + (HEIGHT - MARGINS.bottom) + ")")
-    .call(xAxis);
-
-	vis.append("svg:g")
-    .attr("transform", "translate(" + (MARGINS.left) + ",0)")
-    .call(yAxis);
->>>>>>> Stashed changes
 </script>
 
