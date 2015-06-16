@@ -64,6 +64,12 @@ path {
 	stroke-width: 1;
 	shape-rendering: crispEdges;
 }
+
+.legend rect {
+  fill:white;
+  stroke:black;
+  opacity:0.8;}
+
 	</style>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -74,12 +80,18 @@ path {
     <![endif]-->
   </head>
   <body>
+<script src="d3.legend.js"></script>
 
 
 <?php 
 	$command = escapeshellcmd('/home/archivesuser/moma-utils/pre-ingest-metrics/metrics.py');
 	$output = shell_exec($command);
+<<<<<<< HEAD
 	$selectedDB = '/www/var/automation-audit/metrics.db'
+=======
+	// $selectedDB = '/home/archivesuser/moma-utils/pre-ingest-metrics/metrics.db'
+	$selectedDB = 'metrics.db'
+>>>>>>> origin/master
 ?>
 
 	<nav class="navbar navbar-default navbar-fixed-top">
@@ -136,8 +148,8 @@ path {
 
 		// echo $date.$pre_ingest.$run_component.$readyForIngest.$artworkBacklog;
 		// add these to the JSON for the D3 chart
-
-	echo $output;
+	// uncoment for deubugging
+	// echo $output
 ?>
 
 </body>
@@ -152,6 +164,12 @@ var margin = { top: 30, right: 20, bottom: 30, left: 50 },
 
 // parse the date format
 var	parseDate = d3.time.format("%Y-%m-%d").parse;
+
+//colors (this is new)
+// Our color bands
+var color = d3.scale.ordinal()
+    .range(["#308fef", "#5fa9f3", "#1176db"]);
+
 
 // set the ranges
 var x = d3.time.scale().range([0, width]);
@@ -209,25 +227,31 @@ var	svg = d3.select("body")
 
 	// Scale the range of the data
 	x.domain(d3.extent(pre_ingest_data, function(d) { return d.date; }));
-	y.domain([0, 1000]);
+	y.domain([0, 800]);
  
+
+
 	// draw pre-ingest
 	svg.append("path")	
 		.attr("class", "pre_ingest")
-		.attr("d", valueline(pre_ingest_data));
+		.attr("d", valueline(pre_ingest_data))
+		.attr("data-legend",function(d) { return "Pre-ingest Staging"});
  
  	// draw run_component
 	svg.append("path")
 		.attr("class", "run_component")
-		.attr("d", valueline(run_component_data));
+		.attr("d", valueline(run_component_data))
+		.attr("data-legend",function(d) { return "Run Component"});
  	// draw readyForIngest_data
 	svg.append("path")
 		.attr("class", "readyForIngest")
-		.attr("d", valueline(readyForIngest_data));
+		.attr("d", valueline(readyForIngest_data))
+		.attr("data-legend",function(d) { return "Ready for ingest"});
  	// draw artworkBacklog_data
 	svg.append("path")
 		.attr("class", "artworkBacklog")
-		.attr("d", valueline(artworkBacklog_data));
+		.attr("d", valueline(artworkBacklog_data))
+		.attr("data-legend",function(d) { return "Artwork level backlog"});
 
 	// Add the X Axis
 	svg.append("g")		
@@ -239,7 +263,40 @@ var	svg = d3.select("body")
 	svg.append("g")		
 		.attr("class", "y axis")
 		.call(yAxis);
+  legend = svg.append("g")
+    .attr("class","legend")
+    .attr("transform","translate(50,30)")
+    .style("font-size","12px")
+    .call(d3.legend)
 
+  setTimeout(function() { 
+    legend
+      .style("font-size","20px")
+      .attr("data-style-padding",10)
+      .call(d3.legend)
+  },1000)
+
+svg.append("text")
+    .attr("class", "x label")
+    .attr("text-anchor", "end")
+    .attr("x", width)
+    .attr("y", height - 6)
+    .text("date");
+    svg.append("text")
+    .attr("class", "y label")
+    .attr("text-anchor", "end")
+    .attr("y", 6)
+    .attr("dy", ".75em")
+    .attr("transform", "rotate(-90)")
+    .text("number of artworks");
+
+svg.append("text")
+        .attr("x", (width / 2))             
+        .attr("y", 0 - (margin.top / 2))
+        .attr("text-anchor", "middle")  
+        .style("font-size", "16px") 
+        .style("text-decoration", "underline")  
+        .text("Number of Artworks in ingest queue");
 
 =======
 yAxis = d3.svg.axis()
