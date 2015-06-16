@@ -125,7 +125,7 @@ Permissions on the DB need to be:
 				  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">select database<span class="caret"></span></a>
 				  <ul class="dropdown-menu" role="menu">
 				  	<?php
-						foreach (glob("/usr/lib/archivematica/automation-tools//transfers/transfers.db*") as $filename) {
+						foreach (glob("/usr/lib/archivematica/automation-tools/transfers/transfers.db*") as $filename) {
 						    echo "<li><a href='?db=$filename'> $filename </a></li>";
 						}
 				  	?>
