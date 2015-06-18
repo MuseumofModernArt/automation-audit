@@ -39,12 +39,6 @@ path {
   fill: none;
  }
 
- .run_component{
-  stroke: blue;
-  stroke-width: 2;
-  fill: none;
- }
-
  .readyForIngest{
   stroke: green;
   stroke-width: 2;
@@ -119,26 +113,22 @@ path {
 	$db = new SQLite3($selectedDB);
 	$query = $db->query('SELECT * FROM counting');
 	$pre_ingest_data = array();
-	$run_component_data = array();
 	$readyForIngest_data = array();
 	$artworkBacklog_data = array();
 
 	while ($row = $query->fetchArray()) {
 		$date = $row[0];
 		$pre_ingest = $row[1];
-		$run_component = $row[2];
 		$readyForIngest = $row[3];
 		$artworkBacklog = $row[4];
 
 		$pre_ingest_data[] = array("date" => $date, "close" => $pre_ingest);
-		$run_component_data[] = array("date" => $date, "close" => $run_component);
 		$readyForIngest_data[] = array("date" => $date, "close" => $readyForIngest);
 		$artworkBacklog_data[] = array("date" => $date, "close" => $artworkBacklog);
 
 		};
 
 	$pre_ingest_data = json_encode($pre_ingest_data);
-	$run_component_data = json_encode($run_component_data);
 	$readyForIngest_data = json_encode($readyForIngest_data);
 	$artworkBacklog_data = json_encode($artworkBacklog_data);
 
@@ -192,7 +182,6 @@ var	svg = d3.select("body")
  
 // Get the data
      var pre_ingest_data = <?php echo $pre_ingest_data; ?>;
-     var run_component_data = <?php echo $run_component_data; ?>;
      var readyForIngest_data = <?php echo $readyForIngest_data; ?>;
      var artworkBacklog_data = <?php echo $artworkBacklog_data; ?>;
  
@@ -202,11 +191,7 @@ var	svg = d3.select("body")
 		d.close = +d.close;
 	});
 
-	//get data for run_component
-	run_component_data.forEach(function(d) {
-		d.date = parseDate(d.date);
-		d.close = +d.close;
-	});
+
 
 	//get data for readyForIngest_data
 	readyForIngest_data.forEach(function(d) {
@@ -232,11 +217,6 @@ var	svg = d3.select("body")
 		.attr("d", valueline(pre_ingest_data))
 		.attr("data-legend",function(d) { return "Pre-ingest Staging"});
  
- 	// draw run_component
-	svg.append("path")
-		.attr("class", "run_component")
-		.attr("d", valueline(run_component_data))
-		.attr("data-legend",function(d) { return "Run Component"});
  	// draw readyForIngest_data
 	svg.append("path")
 		.attr("class", "readyForIngest")
