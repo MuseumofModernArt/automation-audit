@@ -128,7 +128,7 @@ path {
 		$pre_ingest = $row[1];
 		$readyForIngest = $row[3];
 		$artworkBacklog = $row[4];
-		$mpaBacklog = $row[4];
+		$mpaBacklog = $row[5];
 
 		$pre_ingest_data[] = array("date" => $date, "close" => $pre_ingest);
 		$readyForIngest_data[] = array("date" => $date, "close" => $readyForIngest);
