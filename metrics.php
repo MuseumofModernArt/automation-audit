@@ -50,6 +50,12 @@ path {
   stroke-width: 2;
   fill: none;
  }
+
+  .mpaBacklog{
+  stroke: blue;
+  stroke-width: 2;
+  fill: none;
+ }
  
 .axis path,
 .axis line {
@@ -115,22 +121,26 @@ path {
 	$pre_ingest_data = array();
 	$readyForIngest_data = array();
 	$artworkBacklog_data = array();
+	$mpaBacklog_data = array();
 
 	while ($row = $query->fetchArray()) {
 		$date = $row[0];
 		$pre_ingest = $row[1];
 		$readyForIngest = $row[3];
 		$artworkBacklog = $row[4];
+		$mpaBacklog = $row[4];
 
 		$pre_ingest_data[] = array("date" => $date, "close" => $pre_ingest);
 		$readyForIngest_data[] = array("date" => $date, "close" => $readyForIngest);
 		$artworkBacklog_data[] = array("date" => $date, "close" => $artworkBacklog);
+		$mpaBacklog_data[] = array("date" => $date, "close" => $mpaBacklog);
 
 		};
 
 	$pre_ingest_data = json_encode($pre_ingest_data);
 	$readyForIngest_data = json_encode($readyForIngest_data);
 	$artworkBacklog_data = json_encode($artworkBacklog_data);
+	$mpaBacklog_data = json_encode($artworkBacklog_data);
 
 		// echo $date.$pre_ingest.$run_component.$readyForIngest.$artworkBacklog;
 		// add these to the JSON for the D3 chart
@@ -184,6 +194,7 @@ var	svg = d3.select("body")
      var pre_ingest_data = <?php echo $pre_ingest_data; ?>;
      var readyForIngest_data = <?php echo $readyForIngest_data; ?>;
      var artworkBacklog_data = <?php echo $artworkBacklog_data; ?>;
+     var mpaBacklog_data = <?php echo $mpaBacklog_data; ?>;
  
  	//get data for pre-ingest
 	pre_ingest_data.forEach(function(d) {
@@ -201,6 +212,12 @@ var	svg = d3.select("body")
 
 	//get data for artworkBacklog_data
 	artworkBacklog_data.forEach(function(d) {
+		d.date = parseDate(d.date);
+		d.close = +d.close;
+	});
+
+	//get data for artworkBacklog_data
+	mpaBacklog_data.forEach(function(d) {
 		d.date = parseDate(d.date);
 		d.close = +d.close;
 	});
@@ -227,6 +244,12 @@ var	svg = d3.select("body")
 		.attr("class", "artworkBacklog")
 		.attr("d", valueline(artworkBacklog_data))
 		.attr("data-legend",function(d) { return "Artwork level backlog"});
+
+ 	// draw mpaBacklog_data
+	svg.append("path")
+		.attr("class", "mpaBacklog")
+		.attr("d", valueline(artworkBacklog_data))
+		.attr("data-legend",function(d) { return "MPA level backlog"});
 
 	// Add the X Axis
 	svg.append("g")		
