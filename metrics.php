@@ -248,7 +248,7 @@ var	svg = d3.select("body")
  	// draw mpaBacklog_data
 	svg.append("path")
 		.attr("class", "mpaBacklog")
-		.attr("d", valueline(artworkBacklog_data))
+		.attr("d", valueline(mpaBacklog_data))
 		.attr("data-legend",function(d) { return "MPA level backlog"});
 
 	// Add the X Axis
