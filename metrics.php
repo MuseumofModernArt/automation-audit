@@ -129,11 +129,13 @@ path {
 		$readyForIngest = $row[3];
 		$artworkBacklog = $row[4];
 		$mpaBacklog = $row[5];
+		$pre_ingest_isilon = $row[6];
 
 		$pre_ingest_data[] = array("date" => $date, "close" => $pre_ingest);
 		$readyForIngest_data[] = array("date" => $date, "close" => $readyForIngest);
 		$artworkBacklog_data[] = array("date" => $date, "close" => $artworkBacklog);
 		$mpaBacklog_data[] = array("date" => $date, "close" => $mpaBacklog);
+		$pre_ingest_isilon_data[] = array("date" => $date, "close" => $pre_ingest_isilon);
 
 		};
 
@@ -141,6 +143,7 @@ path {
 	$readyForIngest_data = json_encode($readyForIngest_data);
 	$artworkBacklog_data = json_encode($artworkBacklog_data);
 	$mpaBacklog_data = json_encode($mpaBacklog_data);
+	$pre_ingest_isilon_data = json_encode($pre_ingest_isilon_data);
 
 		// echo $date.$pre_ingest.$run_component.$readyForIngest.$artworkBacklog;
 		// add these to the JSON for the D3 chart
@@ -195,6 +198,7 @@ var	svg = d3.select("body")
      var readyForIngest_data = <?php echo $readyForIngest_data; ?>;
      var artworkBacklog_data = <?php echo $artworkBacklog_data; ?>;
      var mpaBacklog_data = <?php echo $mpaBacklog_data; ?>;
+     var pre_ingest_isilon_data = <?php echo $pre_ingest_isilon_data; ?>;
  
  	//get data for pre-ingest
 	pre_ingest_data.forEach(function(d) {
@@ -218,6 +222,12 @@ var	svg = d3.select("body")
 
 	//get data for artworkBacklog_data
 	mpaBacklog_data.forEach(function(d) {
+		d.date = parseDate(d.date);
+		d.close = +d.close;
+	});
+
+	//get data for artworkBacklog_data
+	pre_ingest_isilon_data.forEach(function(d) {
 		d.date = parseDate(d.date);
 		d.close = +d.close;
 	});
@@ -250,6 +260,12 @@ var	svg = d3.select("body")
 		.attr("class", "mpaBacklog")
 		.attr("d", valueline(mpaBacklog_data))
 		.attr("data-legend",function(d) { return "MPA artwork level backlog"});
+
+ 	// draw pre_ingest_isilon_data
+	svg.append("path")
+		.attr("class", "Isilon pre-ingest")
+		.attr("d", valueline(pre_ingest_isilon_data))
+		.attr("data-legend",function(d) { return "Isilon staging"});
 
 	// Add the X Axis
 	svg.append("g")		
