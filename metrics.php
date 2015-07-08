@@ -279,7 +279,7 @@ var	svg = d3.select("body")
 		.call(yAxis);
   legend = svg.append("g")
     .attr("class","legend")
-    .attr("transform","translate(50,30)")
+    .attr("transform","translate(850,30)")
     .style("font-size","12px")
     .call(d3.legend)
 
