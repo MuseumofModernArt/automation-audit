@@ -46,7 +46,7 @@ path {
  }
 
   .readyForIngest2{
-  stroke: pink;
+  stroke: rgb(45, 255, 0);
   stroke-width: 2;
   fill: none;
  }
