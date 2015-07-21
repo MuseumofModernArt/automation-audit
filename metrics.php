@@ -45,6 +45,12 @@ path {
   fill: none;
  }
 
+  .readyForIngest2{
+  stroke: pink;
+  stroke-width: 2;
+  fill: none;
+ }
+
  .artworkBacklog{
   stroke: red;
   stroke-width: 2;
@@ -130,12 +136,14 @@ path {
 		$artworkBacklog = $row[4];
 		$mpaBacklog = $row[5];
 		$pre_ingest_isilon = $row[6];
+		$readyForIngest2 = $row[7];
 
 		$pre_ingest_data[] = array("date" => $date, "close" => $pre_ingest);
 		$readyForIngest_data[] = array("date" => $date, "close" => $readyForIngest);
 		$artworkBacklog_data[] = array("date" => $date, "close" => $artworkBacklog);
 		$mpaBacklog_data[] = array("date" => $date, "close" => $mpaBacklog);
 		$pre_ingest_isilon_data[] = array("date" => $date, "close" => $pre_ingest_isilon);
+		$readyForIngest2_data[] = array("date" => $date, "close" => $readyForIngest2);
 
 		};
 
@@ -144,6 +152,7 @@ path {
 	$artworkBacklog_data = json_encode($artworkBacklog_data);
 	$mpaBacklog_data = json_encode($mpaBacklog_data);
 	$pre_ingest_isilon_data = json_encode($pre_ingest_isilon_data);
+	$readyForIngest2_data = json_encode($readyForIngest2_data);
 
 		// echo $date.$pre_ingest.$run_component.$readyForIngest.$artworkBacklog;
 		// add these to the JSON for the D3 chart
@@ -199,6 +208,7 @@ var	svg = d3.select("body")
      var artworkBacklog_data = <?php echo $artworkBacklog_data; ?>;
      var mpaBacklog_data = <?php echo $mpaBacklog_data; ?>;
      var pre_ingest_isilon_data = <?php echo $pre_ingest_isilon_data; ?>;
+     var readyForIngest2_data = <?php echo $readyForIngest2_data; ?>;
  
  	//get data for pre-ingest
 	pre_ingest_data.forEach(function(d) {
@@ -210,6 +220,13 @@ var	svg = d3.select("body")
 
 	//get data for readyForIngest_data
 	readyForIngest_data.forEach(function(d) {
+		d.date = parseDate(d.date);
+		d.close = +d.close;
+	});
+
+
+		//get data for readyForIngest2_data
+	readyForIngest2_data.forEach(function(d) {
 		d.date = parseDate(d.date);
 		d.close = +d.close;
 	});
@@ -249,6 +266,13 @@ var	svg = d3.select("body")
 		.attr("class", "readyForIngest")
 		.attr("d", valueline(readyForIngest_data))
 		.attr("data-legend",function(d) { return "Ready for ingest"});
+
+ 	// draw readyForIngest2_data
+	svg.append("path")
+		.attr("class", "readyForIngest2")
+		.attr("d", valueline(readyForIngest2_data))
+		.attr("data-legend",function(d) { return "Ready for ingest #2"});
+
  	// draw artworkBacklog_data
 	svg.append("path")
 		.attr("class", "artworkBacklog")
