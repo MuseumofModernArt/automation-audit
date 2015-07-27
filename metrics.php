@@ -156,6 +156,9 @@ path {
 	$mpaBacklog_data = json_encode($mpaBacklog_data);
 	$pre_ingest_isilon_data = json_encode($pre_ingest_isilon_data);
 	$readyForIngest2_data = json_encode($readyForIngest2_data);
+	$simple_pre_ingest_staging_data = json_encode($simple_pre_ingest_staging_data);
+	$simple_backlog_data = json_encode($simple_backlog_data);
+	$simple_ready_data = json_encode($simple_ready_data);
 
 		// echo $date.$pre_ingest.$run_component.$readyForIngest.$artworkBacklog;
 		// add these to the JSON for the D3 chart
