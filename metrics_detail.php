@@ -138,15 +138,21 @@ path {
 		$pre_ingest_isilon = $row[6];
 		$readyForIngest2 = $row[7];
 
-		$simple_pre_ingest_staging_data[] = array("date" => $date, "close" => $pre_ingest+$pre_ingest_isilon);
-		$simple_backlog_data[] = array("date" => $date, "close" => $artworkBacklog+$mpaBacklog);
-		$simple_ready_data[] = array("date" => $date, "close" => $readyForIngest+$readyForIngest2);
+		$pre_ingest_data[] = array("date" => $date, "close" => $pre_ingest);
+		$readyForIngest_data[] = array("date" => $date, "close" => $readyForIngest);
+		$artworkBacklog_data[] = array("date" => $date, "close" => $artworkBacklog);
+		$mpaBacklog_data[] = array("date" => $date, "close" => $mpaBacklog);
+		$pre_ingest_isilon_data[] = array("date" => $date, "close" => $pre_ingest_isilon);
+		$readyForIngest2_data[] = array("date" => $date, "close" => $readyForIngest2);
 
 		};
 
-	$simple_pre_ingest_staging_data = json_encode($simple_pre_ingest_staging_data);
-	$simple_backlog_data = json_encode($simple_backlog_data);
-	$simple_ready_data = json_encode($simple_ready_data);
+	$pre_ingest_data = json_encode($pre_ingest_data);
+	$readyForIngest_data = json_encode($readyForIngest_data);
+	$artworkBacklog_data = json_encode($artworkBacklog_data);
+	$mpaBacklog_data = json_encode($mpaBacklog_data);
+	$pre_ingest_isilon_data = json_encode($pre_ingest_isilon_data);
+	$readyForIngest2_data = json_encode($readyForIngest2_data);
 
 		// echo $date.$pre_ingest.$run_component.$readyForIngest.$artworkBacklog;
 		// add these to the JSON for the D3 chart
@@ -197,12 +203,15 @@ var	svg = d3.select("body")
 		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
  
 // Get the data
-     var simple_pre_ingest_staging_data = <?php echo $simple_pre_ingest_staging_data; ?>;
-     var simple_backlog_data = <?php echo $simple_backlog_data; ?>;
-     var simple_ready_data = <?php echo $simple_ready_data; ?>;
+     var pre_ingest_data = <?php echo $pre_ingest_data; ?>;
+     var readyForIngest_data = <?php echo $readyForIngest_data; ?>;
+     var artworkBacklog_data = <?php echo $artworkBacklog_data; ?>;
+     var mpaBacklog_data = <?php echo $mpaBacklog_data; ?>;
+     var pre_ingest_isilon_data = <?php echo $pre_ingest_isilon_data; ?>;
+     var readyForIngest2_data = <?php echo $readyForIngest2_data; ?>;
  
  	//get data for pre-ingest
-	simple_pre_ingest_staging_data.forEach(function(d) {
+	pre_ingest_data.forEach(function(d) {
 		d.date = parseDate(d.date);
 		d.close = +d.close;
 	});
@@ -210,22 +219,38 @@ var	svg = d3.select("body")
 
 
 	//get data for readyForIngest_data
-	simple_ready_data.forEach(function(d) {
+	readyForIngest_data.forEach(function(d) {
 		d.date = parseDate(d.date);
 		d.close = +d.close;
 	});
 
+
+		//get data for readyForIngest2_data
+	readyForIngest2_data.forEach(function(d) {
+		d.date = parseDate(d.date);
+		d.close = +d.close;
+	});
 
 	//get data for artworkBacklog_data
-	simple_backlog_data.forEach(function(d) {
+	artworkBacklog_data.forEach(function(d) {
 		d.date = parseDate(d.date);
 		d.close = +d.close;
 	});
 
+	//get data for artworkBacklog_data
+	mpaBacklog_data.forEach(function(d) {
+		d.date = parseDate(d.date);
+		d.close = +d.close;
+	});
 
+	//get data for artworkBacklog_data
+	pre_ingest_isilon_data.forEach(function(d) {
+		d.date = parseDate(d.date);
+		d.close = +d.close;
+	});
 
 	// Scale the range of the data
-	x.domain(d3.extent(simple_pre_ingest_staging_data, function(d) { return d.date; }));
+	x.domain(d3.extent(pre_ingest_data, function(d) { return d.date; }));
 	y.domain([0, 800]);
  
 
@@ -233,22 +258,38 @@ var	svg = d3.select("body")
 	// draw pre-ingest
 	svg.append("path")	
 		.attr("class", "pre_ingest")
-		.attr("d", valueline(simple_pre_ingest_staging_data))
+		.attr("d", valueline(pre_ingest_data))
 		.attr("data-legend",function(d) { return "Pre-ingest Staging"});
  
- 	// draw simple_ready_data
+ 	// draw readyForIngest_data
 	svg.append("path")
 		.attr("class", "readyForIngest")
-		.attr("d", valueline(simple_ready_data))
+		.attr("d", valueline(readyForIngest_data))
 		.attr("data-legend",function(d) { return "Ready for ingest"});
+
+ 	// draw readyForIngest2_data
+	svg.append("path")
+		.attr("class", "readyForIngest2")
+		.attr("d", valueline(readyForIngest2_data))
+		.attr("data-legend",function(d) { return "Ready for ingest #2"});
 
  	// draw artworkBacklog_data
 	svg.append("path")
 		.attr("class", "artworkBacklog")
-		.attr("d", valueline(simple_backlog_data))
+		.attr("d", valueline(artworkBacklog_data))
 		.attr("data-legend",function(d) { return "Artwork level backlog"});
 
+ 	// draw mpaBacklog_data
+	svg.append("path")
+		.attr("class", "mpaBacklog")
+		.attr("d", valueline(mpaBacklog_data))
+		.attr("data-legend",function(d) { return "MPA artwork level backlog"});
 
+ 	// draw pre_ingest_isilon_data
+	svg.append("path")
+		.attr("class", "Isilon pre-ingest")
+		.attr("d", valueline(pre_ingest_isilon_data))
+		.attr("data-legend",function(d) { return "Isilon staging"});
 
 	// Add the X Axis
 	svg.append("g")		
