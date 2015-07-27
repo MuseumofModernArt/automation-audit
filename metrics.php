@@ -212,6 +212,9 @@ var	svg = d3.select("body")
      var mpaBacklog_data = <?php echo $mpaBacklog_data; ?>;
      var pre_ingest_isilon_data = <?php echo $pre_ingest_isilon_data; ?>;
      var readyForIngest2_data = <?php echo $readyForIngest2_data; ?>;
+     var simple_pre_ingest_staging_data = <?php echo $simple_pre_ingest_staging_data; ?>;
+     var simple_backlog_data = <?php echo $simple_backlog_data; ?>;
+     var simple_ready_data = <?php echo $simple_ready_data; ?>;
  
  	//get data for pre-ingest
 	pre_ingest_data.forEach(function(d) {
