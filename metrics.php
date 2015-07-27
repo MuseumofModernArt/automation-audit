@@ -144,6 +144,9 @@ path {
 		$mpaBacklog_data[] = array("date" => $date, "close" => $mpaBacklog);
 		$pre_ingest_isilon_data[] = array("date" => $date, "close" => $pre_ingest_isilon);
 		$readyForIngest2_data[] = array("date" => $date, "close" => $readyForIngest2);
+		$simple_pre_ingest_staging_data[] = array("date" => $date, "close" => $pre_ingest+$pre_ingest_isilon);
+		$simple_backlog_data[] = array("date" => $date, "close" => $artworkBacklog+$mpaBacklog);
+		$simple_ready_data[] = array("date" => $date, "close" => $readyForIngest+$readyForIngest2);
 
 		};
 
