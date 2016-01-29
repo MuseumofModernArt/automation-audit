@@ -216,19 +216,19 @@ var	svg = d3.select("body")
 	// draw pre-ingest
 	svg.append("path")	
 		.attr("class", "pre_ingest")
-		.attr("d", valueline(simple_pre_ingest_staging_data))
+		.attr("d", valueline(pre_ingest_staging_data))
 		.attr("data-legend",function(d) { return "Pre-ingest Staging"});
  
  	// draw simple_ready_data
 	svg.append("path")
 		.attr("class", "readyForIngest")
-		.attr("d", valueline(simple_ready_data))
+		.attr("d", valueline(runComponent_data))
 		.attr("data-legend",function(d) { return "Run Component"});
 
  	// draw artworkBacklog_data
 	svg.append("path")
 		.attr("class", "artworkBacklog")
-		.attr("d", valueline(simple_backlog_data))
+		.attr("d", valueline(readyForIngest_data))
 		.attr("data-legend",function(d) { return "Ready for Ingest"});
 
 
