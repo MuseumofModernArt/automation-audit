@@ -137,7 +137,7 @@ path {
 
 // set dimensions of the graph
 
-var margin = { top: 60, right: 50, bottom: 70, left: 80 },
+var margin = { top: 0, right: 0, bottom: 0, left: 0 },
     width = window.innerWidth - margin.left - margin.right,
     height = window.innerHeight - margin.top - margin.bottom;
 
