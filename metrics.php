@@ -138,8 +138,8 @@ path {
 // set dimensions of the graph
 
 var margin = { top: 30, right: 20, bottom: 30, left: 50 },
-    width = 1200 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    width = 100% - margin.left - margin.right,
+    height = 100% - margin.top - margin.bottom;
 
 // parse the date format
 var	parseDate = d3.time.format("%Y-%m-%d").parse;
