@@ -76,6 +76,11 @@ path {
   stroke:black;
   opacity:0.8;}
 
+  svg{
+  	width: 100%;
+  	height: 100%;
+  }
+
 	</style>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -138,8 +143,8 @@ path {
 // set dimensions of the graph
 
 var margin = { top: 0, right: 0, bottom: 0, left: 0 },
-    width = window.innerWidth - margin.left - margin.right,
-    height = window.innerHeight - margin.top - margin.bottom;
+    width = $("svg").parent().width(),
+    height = $("svg").parent().height();
 
 // parse the date format
 var	parseDate = d3.time.format("%Y-%m-%d").parse;
