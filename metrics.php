@@ -19,9 +19,7 @@
 
 	<style type="text/css">
 		body { padding-top: 70px; 
-			margin: 50px;
-			height: 100%;
-			width: 100%;}
+			margin: 50px;}
 		.label-as-badge {
     border-radius: 1em;
     font-size: 15px;
@@ -145,8 +143,8 @@ path {
 // set dimensions of the graph
 
 var margin = { top: 0, right: 0, bottom: 0, left: 0 },
-    width = $("svg").parent().width(),
-    height = $("svg").parent().height();
+    width = window.innerWidth ,
+    height = window.innerHeight;
 
 // parse the date format
 var	parseDate = d3.time.format("%Y-%m-%d").parse;
@@ -175,8 +173,8 @@ var	valueline = d3.svg.line()
 // Adds the svg canvas
 var	svg = d3.select("body")
 	.append("svg")
-		.attr("width", '100%')
-		.attr("height", '100%')
+		.attr("width", width + margin.left + margin.right)
+		.attr("height", height + margin.top + margin.bottom)
 	.append("g")
 		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
  
