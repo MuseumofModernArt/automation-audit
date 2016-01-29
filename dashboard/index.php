@@ -80,7 +80,7 @@ $object_endpoint = 'http://vmsqlsvcs.museum.moma.org/TMSAPI/TmsObjectSvc/TmsObje
                                 </a>
                               </div>
                               <div class="media-body">
-                                <h4 class="media-heading">560.1984.x9</h4>
+                                <h4 class="media-heading"><?php echo $title ?></h4>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
                               </div>
                             </div>
