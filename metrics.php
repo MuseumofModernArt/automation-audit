@@ -310,15 +310,15 @@ function resize() {
 	y.range([height, 0]).nice();
 
 	/* Update the axis with the new scale */
-	graph.select('.x.axis')
+	d3.select('.x.axis')
 	  .attr("transform", "translate(0," + height + ")")
 	  .call(xAxis);
 
-	graph.select('.y.axis')
+	d3.select('.y.axis')
 	  .call(yAxis);
 
 	/* Force D3 to recalculate and update the line */
-	graph.selectAll('.line')
+	d3.selectAll('.line')
 	  .attr("d", line);
 }
 
