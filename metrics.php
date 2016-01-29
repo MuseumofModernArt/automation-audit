@@ -173,8 +173,8 @@ var	valueline = d3.svg.line()
 // Adds the svg canvas
 var	svg = d3.select("body")
 	.append("svg")
-		.attr("width", width + margin.left + margin.right)
-		.attr("height", height + margin.top + margin.bottom)
+		.attr("width", width)
+		.attr("height", height)
 	.append("g")
 		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
  
