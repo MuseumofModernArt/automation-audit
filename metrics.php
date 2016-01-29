@@ -306,8 +306,8 @@ function resize() {
 	height = parseInt(d3.select("#graph").style("height")) - margin*2;
 
 	/* Update the range of the scale with new width/height */
-	xScale.range([0, width]).nice(d3.time.year);
-	yScale.range([height, 0]).nice();
+	x.range([0, width]).nice(d3.time.year);
+	y.range([height, 0]).nice();
 
 	/* Update the axis with the new scale */
 	graph.select('.x.axis')
