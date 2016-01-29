@@ -114,12 +114,12 @@ path {
 	while ($row = $query->fetchArray()) {
 		$date = $row[0];
 		$pre_ingest = $row[1];
-		$runComponent = $row[3];
-		$readyForIngest = $row[4];
-		$artworkBacklog = $row[5];
-		$mpaBacklog = $row[6];
-		$preIngestIsilon = $row[7];
-		$readyForIngest2 = $row[8];
+		$runComponent = $row[2];
+		$readyForIngest = $row[3];
+		$artworkBacklog = $row[4];
+		$mpaBacklog = $row[5];
+		$preIngestIsilon = $row[6];
+		$readyForIngest2 = $row[7];
 
 		$pre_ingest_staging_data[] = array("date" => $date, "close" => $pre_ingest);
 		$runComponent_data[] = array("date" => $date, "close" => $runComponent);
