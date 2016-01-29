@@ -144,7 +144,7 @@ path {
 
 var margin = { top: 0, right: 0, bottom: 0, left: 0 },
     width = window.innerWidth - 200,
-    height = window.innerHeight - 200;
+    height = window.innerHeight - 300;
 
 // parse the date format
 var	parseDate = d3.time.format("%Y-%m-%d").parse;
