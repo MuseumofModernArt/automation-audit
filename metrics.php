@@ -19,7 +19,9 @@
 
 	<style type="text/css">
 		body { padding-top: 70px; 
-			margin: 50px;}
+			margin: 50px;
+			height: 100%;
+			width: 100%;}
 		.label-as-badge {
     border-radius: 1em;
     font-size: 15px;
