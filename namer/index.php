@@ -99,7 +99,7 @@
 		}
 
 
-		$rootPath = '/var/www/automation-audit/namer/'.$dirname
+		$rootPath = '/var/www/automation-audit/namer/'.$dirname;
 
 		// Initialize archive object
 		$zip = new ZipArchive();
