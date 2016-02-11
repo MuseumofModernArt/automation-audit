@@ -82,6 +82,10 @@ path {
   	height: 100%;
   }
 
+.navbar-fixed{
+	background-color: #00FFC4 !important;
+}
+
 	</style>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
