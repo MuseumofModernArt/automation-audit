@@ -253,12 +253,12 @@ var	svg = d3.select("body")
 		// draw preIngestIsilon
 	svg.append("path")
 		.attr("class", "preIngestIsilon")
-		.attr("d", valueline(run_component_data))
+		.attr("d", valueline(preIngestIsilon_data))
 		.attr("data-legend",function(d) { return "preIngestIsilon"});
 		// draw readyForIngestIsilon
 	svg.append("path")
 		.attr("class", "readyForIngestIsilon")
-		.attr("d", valueline(run_component_data))
+		.attr("d", valueline(readyForIngestIsilon_data))
 		.attr("data-legend",function(d) { return "readyForIngestIsilon"});
 
 	// Add the X Axis
