@@ -93,7 +93,7 @@ path {
   </head>
   <body>
 
-<nav class="navbar-fixed">
+<nav class="navbar-fixed light-blue darken-1">
     <div class="nav-wrapper">
       <a href="#" class="brand-logo">MoMA DMRC tools</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
