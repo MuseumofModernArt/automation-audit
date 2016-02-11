@@ -38,6 +38,12 @@
  
 <body>
 
+<?php
+
+$object_endpoint = 'http://vmsqlsvcs.museum.moma.org/TMSAPI/TmsObjectSvc/TmsObjects.svc/GetTombstoneDataRest/Object/';
+
+?>
+
     <div id="wrapper">
 
 <br>
@@ -47,6 +53,22 @@
             <div class="row">
                 <div class="col-lg-4">
                     <div class="panel panel-primary">
+
+                        <?php $objectNumber = '451.2003'; 
+
+
+
+
+        $url = file_get_contents($object_endpoint.$objectNumber);
+        $json = json_decode($url, true);
+        $title = $json["GetTombstoneDataRestResult"]["Title"];
+        $artist = $json["GetTombstoneDataRestResult"]["AlphaSort"];
+        $objectnum = $json["GetTombstoneDataRestResult"]["ObjectNumber"];
+        $objectid = $json["GetTombstoneDataRestResult"]["ObjectID"];
+?>
+
+
+
                         <div class="panel-heading">
                             Pipeline #1
                         </div>
@@ -58,7 +80,7 @@
                                 </a>
                               </div>
                               <div class="media-body">
-                                <h4 class="media-heading">560.1984.x9</h4>
+                                <h4 class="media-heading"><?php echo $title ?></h4>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
                               </div>
                             </div>
