@@ -20,8 +20,7 @@
 
 
 	<style type="text/css">
-		body { padding-top: 70px; 
-			margin: 50px;}
+
 		.label-as-badge {
     border-radius: 1em;
     font-size: 15px;
@@ -94,18 +93,19 @@ path {
   </head>
   <body>
 
-<nav>
+<nav class="navbar-fixed">
     <div class="nav-wrapper">
-      <a href="#" class="brand-logo">Logo</a>
+      <a href="#" class="brand-logo">MoMA DMRC tools</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="sass.html">Sass</a></li>
-        <li><a href="badges.html">Components</a></li>
-        <li><a href="collapsible.html">JavaScript</a></li>
+        <li><a href="sass.html">Storage chart</a></li>
+        <li><a href="badges.html" class="active">Backlog chart</a></li>
+        <li><a href="collapsible.html">Automation-audit</a></li>
+        <li><a href="collapsible.html">Naming utility</a></li>
       </ul>
     </div>
   </nav>
 
-  	
+
 <script src="d3.legend.js"></script>
 
 
