@@ -58,16 +58,13 @@
 				  </ul>
 				</li>
 		      </ul>
-		      <ul class="nav navbar-nav navbar-right">
-		      	<li><a href=""><span class="glyphicon glyphicon-user" aria-hidden="true"></span><span class="user"><?php echo " {$_SERVER['PHP_AUTH_USER']}"; ?></span></a></li>
-		      </ul>
 		    </div><!-- /.navbar-collapse -->
 		  </div><!-- /.container-fluid -->
 	</nav>
 
 <div class='container-fluid'>
 
-	<button class="btn btn-default" type="submit">Download folders</button>
+	
 
 <?php 
 
@@ -91,7 +88,7 @@
 
 		mkdir("/var/www/automation-audit/namer/".$dirname, 0777);
 
-		print "<div class='well'><h1><span class='glyphicon glyphicon-folder-open' aria-hidden='true'></span>&nbsp;&nbsp;".$dirname."</h1></div>";
+		print "<button class='btn btn-default' type='submit'>Download folders</button><div class='well'><h1><span class='glyphicon glyphicon-folder-open' aria-hidden='true'></span>&nbsp;&nbsp;".$dirname."</h1></div>";
 
 		
 		foreach ($components as $component) {
