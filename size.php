@@ -303,7 +303,7 @@ svg.append("text")
     .attr("y", 6)
     .attr("dy", ".75em")
     .attr("transform", "rotate(-90)")
-    .text("Size in Bytes");
+    .text("Size in Terabytes");
 
 svg.append("text")
         .attr("x", (width / 2))             
