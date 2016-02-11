@@ -56,6 +56,12 @@ path {
   stroke-width: 2;
   fill: none;
  }
+
+ .preIngestIsilon{
+ 	  stroke: rgb(0, 238, 117);
+  stroke-width: 2;
+  fill: none;
+ }
  
 .axis path,
 .axis line {
@@ -238,28 +244,28 @@ var	svg = d3.select("body")
 	svg.append("path")	
 		.attr("class", "pre_ingest")
 		.attr("d", valueline(pre_ingest_data))
-		.attr("data-legend",function(d) { return "Pre-ingest Staging"});
+		.attr("data-legend",function(d) { return "VNX staging"});
  
  	// draw readyForIngest_data
 	svg.append("path")
 		.attr("class", "readyForIngest")
 		.attr("d", valueline(readyForIngest_data))
-		.attr("data-legend",function(d) { return "Ready for ingest"});
+		.attr("data-legend",function(d) { return "VNX ready for ingest"});
  	// draw artworkBacklog_data
 	svg.append("path")
 		.attr("class", "artworkBacklog")
 		.attr("d", valueline(artworkBacklog_data))
-		.attr("data-legend",function(d) { return "Artwork level backlog"});
+		.attr("data-legend",function(d) { return "VNX backlog"});
 		// draw preIngestIsilon
 	svg.append("path")
 		.attr("class", "preIngestIsilon")
 		.attr("d", valueline(preIngestIsilon_data))
-		.attr("data-legend",function(d) { return "preIngestIsilon"});
+		.attr("data-legend",function(d) { return "Isilon staging"});
 		// draw readyForIngestIsilon
 	svg.append("path")
 		.attr("class", "readyForIngestIsilon")
 		.attr("d", valueline(readyForIngestIsilon_data))
-		.attr("data-legend",function(d) { return "readyForIngestIsilon"});
+		.attr("data-legend",function(d) { return "Isilon ready for ingest"});
 
 	// Add the X Axis
 	svg.append("g")		
@@ -296,7 +302,7 @@ svg.append("text")
     .attr("y", 6)
     .attr("dy", ".75em")
     .attr("transform", "rotate(-90)")
-    .text("number of artworks");
+    .text("Size in Bytes");
 
 svg.append("text")
         .attr("x", (width / 2))             
@@ -304,6 +310,6 @@ svg.append("text")
         .attr("text-anchor", "middle")  
         .style("font-size", "16px") 
         .style("text-decoration", "underline")  
-        .text("Number of Artworks in ingest queue");
+        .text("DRMC Pre-ingest storage usage");
 
 </script>
