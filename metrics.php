@@ -17,76 +17,9 @@
   <!-- Compiled and minified JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
           
+  <link rel="stylesheet" href="style.css">
 
 
-	<style type="text/css">
-
-		.label-as-badge {
-    border-radius: 1em;
-    font-size: 15px;
-
-}
-
-
-path { 
-  stroke: black;
-  stroke-width: 2;
-  fill: none;
-}
-
-.pre_ingest{
-  stroke: orange;
-  stroke-width: 2;
-  fill: none;
- }
-
- .readyForIngest{
-  stroke: green;
-  stroke-width: 2;
-  fill: none;
- }
-
-  .readyForIngest2{
-  stroke: rgb(45, 255, 0);
-  stroke-width: 2;
-  fill: none;
- }
-
- .artworkBacklog{
-  stroke: red;
-  stroke-width: 2;
-  fill: none;
- }
-
-  .mpaBacklog{
-  stroke: blue;
-  stroke-width: 2;
-  fill: none;
- }
- 
-.axis path,
-.axis line {
-	fill: none;
-	stroke: grey;
-	stroke-width: 1;
-	shape-rendering: crispEdges;
-}
-
-.legend rect {
-  fill:white;
-  stroke:black;
-  opacity:0.8;}
-
-  svg{
-  	width: 100%;
-  	height: 100%;
-  }
-
-.navbar-fixed{
-	background-color: #00FFC4 !important;
-}
-
-	</style>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

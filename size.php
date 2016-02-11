@@ -17,66 +17,8 @@
 	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 
 
-	<style type="text/css">
-		body { padding-top: 70px; 
-			margin: 50px;}
-		.label-as-badge {
-    border-radius: 1em;
-    font-size: 15px;
+	  <link rel="stylesheet" href="style.css">
 
-}
-
-
-path { 
-  stroke: black;
-  stroke-width: 2;
-  fill: none;
-}
-
-.pre_ingest{
-  stroke: orange;
-  stroke-width: 2;
-  fill: none;
- }
-
- .run_component{
-  stroke: blue;
-  stroke-width: 2;
-  fill: none;
- }
-
- .readyForIngest{
-  stroke: green;
-  stroke-width: 2;
-  fill: none;
- }
-
- .artworkBacklog{
-  stroke: red;
-  stroke-width: 2;
-  fill: none;
- }
-
- .preIngestIsilon{
- 	  stroke: rgb(0, 238, 117);
-  stroke-width: 2;
-  fill: none;
- }
- 
-.axis path,
-.axis line {
-	fill: none;
-	stroke: grey;
-	stroke-width: 1;
-	shape-rendering: crispEdges;
-}
-
-.legend rect {
-  fill:white;
-  stroke:black;
-  opacity:0.8;}
-
-	</style>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -86,6 +28,19 @@ path {
     <![endif]-->
   </head>
   <body>
+
+<nav class="navbar-fixed">
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo">MoMA DMRC tools</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li class="active"><a href="size/">Storage chart</a></li>
+        <li><a href="badges.html">Backlog chart</a></li>
+        <li><a href="../">Automation-audit</a></li>
+        <li><a href="./namer/">Naming utility</a></li>
+      </ul>
+    </div>
+  </nav>
+
 <script src="d3.legend.js"></script>
 
 
