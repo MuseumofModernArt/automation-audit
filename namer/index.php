@@ -67,7 +67,14 @@
 
 <div class='container-fluid'>
 
+	<button class="btn btn-default" type="submit">Download folders</button>
+
 <?php 
+
+
+
+
+
 
 	if (isset($_GET['objectnum'])){
 		$artwork = $_GET['objectnum'];
@@ -82,6 +89,8 @@
 
 		$dirname = preg_replace('/\s+/', '_', $dirname);
 
+		mkdir("/var/www/automation-audit/namer/".$dirname, 0777);
+
 		print "<div class='well'><h1><span class='glyphicon glyphicon-folder-open' aria-hidden='true'></span>&nbsp;&nbsp;".$dirname."</h1></div>";
 
 		
@@ -89,6 +98,7 @@
     		$componentNumber = $component['ComponentNumber'];
     		$componentId = $component['ComponentID'];
     		$componentFoldername = $componentNumber."---".$componentId."---".$objectid;
+    		mkdir("/var/www/automation-audit/namer/".$dirname."/".$componentFoldername, 0777);
     		echo "<div class='well col-md-offset-1'><h3><span class='glyphicon glyphicon-folder-open' aria-hidden='true'></span>&nbsp;&nbsp;".$componentFoldername."</h3></div>";
 		}
 
