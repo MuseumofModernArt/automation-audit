@@ -97,10 +97,10 @@ path {
     <div class="nav-wrapper">
       <a href="#" class="brand-logo">MoMA DMRC tools</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="sass.html">Storage chart</a></li>
+        <li><a href="size/">Storage chart</a></li>
         <li class="active"><a href="badges.html">Backlog chart</a></li>
-        <li><a href="collapsible.html">Automation-audit</a></li>
-        <li><a href="collapsible.html">Naming utility</a></li>
+        <li><a href="../">Automation-audit</a></li>
+        <li><a href="./namer/">Naming utility</a></li>
       </ul>
     </div>
   </nav>
