@@ -103,7 +103,7 @@
 
 		// Initialize archive object
 		$zip = new ZipArchive();
-		$zip->open('file.zip', ZipArchive::CREATE | ZipArchive::OVERWRITE);
+		$zip->open('/var/www/automation-audit/namer/'.$objectnum.'.zip', ZipArchive::CREATE | ZipArchive::OVERWRITE);
 
 		// Create recursive directory iterator
 		/** @var SplFileInfo[] $files */
