@@ -237,7 +237,7 @@ var	svg = d3.select("body")
 
 	// Scale the range of the data
 	x.domain(d3.extent(pre_ingest_data, function(d) { return d.date; }));
-	y.domain([0, 100]);
+	y.domain([0, 60]);
  
 
 
