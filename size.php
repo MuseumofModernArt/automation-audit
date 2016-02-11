@@ -307,4 +307,3 @@ svg.append("text")
         .text("Number of Artworks in ingest queue");
 
 </script>
-

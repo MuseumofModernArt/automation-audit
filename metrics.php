@@ -39,20 +39,26 @@ path {
   fill: none;
  }
 
- .run_component{
-  stroke: blue;
-  stroke-width: 2;
-  fill: none;
- }
-
  .readyForIngest{
   stroke: green;
   stroke-width: 2;
   fill: none;
  }
 
+  .readyForIngest2{
+  stroke: rgb(45, 255, 0);
+  stroke-width: 2;
+  fill: none;
+ }
+
  .artworkBacklog{
   stroke: red;
+  stroke-width: 2;
+  fill: none;
+ }
+
+  .mpaBacklog{
+  stroke: blue;
   stroke-width: 2;
   fill: none;
  }
@@ -69,6 +75,11 @@ path {
   fill:white;
   stroke:black;
   opacity:0.8;}
+
+  svg{
+  	width: 100%;
+  	height: 100%;
+  }
 
 	</style>
 
@@ -90,57 +101,34 @@ path {
 	$selectedDB = 'metrics.db'
 ?>
 
-	<nav class="navbar navbar-default navbar-fixed-top">
-		<div class="container-fluid">
-		    <!-- Brand and toggle get grouped for better mobile display -->
-		    <div class="navbar-header">
-		      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-		        <span class="sr-only">Toggle navigation</span>
-		        <span class="icon-bar"></span>
-		        <span class="icon-bar"></span>
-		        <span class="icon-bar"></span>
-		      </button>
-		      <a class="navbar-brand" href="#">Media cons pre-ingest stats</a>
-		    </div>
 
-		    <!-- Collect the nav links, forms, and other content for toggling -->
-		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-		      <ul class="nav navbar-nav">
-				<li> </li>
-				
-		      </ul>
-		      <ul class="nav navbar-nav navbar-right">
-		      </ul>
-		    </div><!-- /.navbar-collapse -->
-		  </div><!-- /.container-fluid -->
-	</nav>
 
 <?php
 	$db = new SQLite3($selectedDB);
 	$query = $db->query('SELECT * FROM counting');
 	$pre_ingest_data = array();
-	$run_component_data = array();
 	$readyForIngest_data = array();
 	$artworkBacklog_data = array();
+	$mpaBacklog_data = array();
 
 	while ($row = $query->fetchArray()) {
 		$date = $row[0];
 		$pre_ingest = $row[1];
-		$run_component = $row[2];
 		$readyForIngest = $row[3];
 		$artworkBacklog = $row[4];
+		$mpaBacklog = $row[5];
+		$pre_ingest_isilon = $row[6];
+		$readyForIngest2 = $row[7];
 
-		$pre_ingest_data[] = array("date" => $date, "close" => $pre_ingest);
-		$run_component_data[] = array("date" => $date, "close" => $run_component);
-		$readyForIngest_data[] = array("date" => $date, "close" => $readyForIngest);
-		$artworkBacklog_data[] = array("date" => $date, "close" => $artworkBacklog);
+		$simple_pre_ingest_staging_data[] = array("date" => $date, "close" => $pre_ingest+$pre_ingest_isilon);
+		$simple_backlog_data[] = array("date" => $date, "close" => $artworkBacklog+$mpaBacklog);
+		$simple_ready_data[] = array("date" => $date, "close" => $readyForIngest+$readyForIngest2);
 
 		};
 
-	$pre_ingest_data = json_encode($pre_ingest_data);
-	$run_component_data = json_encode($run_component_data);
-	$readyForIngest_data = json_encode($readyForIngest_data);
-	$artworkBacklog_data = json_encode($artworkBacklog_data);
+	$simple_pre_ingest_staging_data = json_encode($simple_pre_ingest_staging_data);
+	$simple_backlog_data = json_encode($simple_backlog_data);
+	$simple_ready_data = json_encode($simple_ready_data);
 
 		// echo $date.$pre_ingest.$run_component.$readyForIngest.$artworkBacklog;
 		// add these to the JSON for the D3 chart
@@ -154,9 +142,9 @@ path {
 
 // set dimensions of the graph
 
-var margin = { top: 30, right: 20, bottom: 30, left: 50 },
-    width = 1200 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+var margin = { top: 0, right: 0, bottom: 0, left: 0 },
+    width = window.innerWidth - 200,
+    height = window.innerHeight - 300;
 
 // parse the date format
 var	parseDate = d3.time.format("%Y-%m-%d").parse;
@@ -185,43 +173,41 @@ var	valueline = d3.svg.line()
 // Adds the svg canvas
 var	svg = d3.select("body")
 	.append("svg")
-		.attr("width", width + margin.left + margin.right)
-		.attr("height", height + margin.top + margin.bottom)
+		.attr("width", width)
+		.attr("height", height)
 	.append("g")
 		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
  
 // Get the data
-     var pre_ingest_data = <?php echo $pre_ingest_data; ?>;
-     var run_component_data = <?php echo $run_component_data; ?>;
-     var readyForIngest_data = <?php echo $readyForIngest_data; ?>;
-     var artworkBacklog_data = <?php echo $artworkBacklog_data; ?>;
+     var simple_pre_ingest_staging_data = <?php echo $simple_pre_ingest_staging_data; ?>;
+     var simple_backlog_data = <?php echo $simple_backlog_data; ?>;
+     var simple_ready_data = <?php echo $simple_ready_data; ?>;
  
  	//get data for pre-ingest
-	pre_ingest_data.forEach(function(d) {
+	simple_pre_ingest_staging_data.forEach(function(d) {
 		d.date = parseDate(d.date);
 		d.close = +d.close;
 	});
 
-	//get data for run_component
-	run_component_data.forEach(function(d) {
-		d.date = parseDate(d.date);
-		d.close = +d.close;
-	});
+
 
 	//get data for readyForIngest_data
-	readyForIngest_data.forEach(function(d) {
+	simple_ready_data.forEach(function(d) {
 		d.date = parseDate(d.date);
 		d.close = +d.close;
 	});
+
 
 	//get data for artworkBacklog_data
-	artworkBacklog_data.forEach(function(d) {
+	simple_backlog_data.forEach(function(d) {
 		d.date = parseDate(d.date);
 		d.close = +d.close;
 	});
 
+
+
 	// Scale the range of the data
-	x.domain(d3.extent(pre_ingest_data, function(d) { return d.date; }));
+	x.domain(d3.extent(simple_pre_ingest_staging_data, function(d) { return d.date; }));
 	y.domain([0, 800]);
  
 
@@ -229,24 +215,22 @@ var	svg = d3.select("body")
 	// draw pre-ingest
 	svg.append("path")	
 		.attr("class", "pre_ingest")
-		.attr("d", valueline(pre_ingest_data))
+		.attr("d", valueline(simple_pre_ingest_staging_data))
 		.attr("data-legend",function(d) { return "Pre-ingest Staging"});
  
- 	// draw run_component
-	svg.append("path")
-		.attr("class", "run_component")
-		.attr("d", valueline(run_component_data))
-		.attr("data-legend",function(d) { return "Run Component"});
- 	// draw readyForIngest_data
+ 	// draw simple_ready_data
 	svg.append("path")
 		.attr("class", "readyForIngest")
-		.attr("d", valueline(readyForIngest_data))
+		.attr("d", valueline(simple_ready_data))
 		.attr("data-legend",function(d) { return "Ready for ingest"});
+
  	// draw artworkBacklog_data
 	svg.append("path")
 		.attr("class", "artworkBacklog")
-		.attr("d", valueline(artworkBacklog_data))
+		.attr("d", valueline(simple_backlog_data))
 		.attr("data-legend",function(d) { return "Artwork level backlog"});
+
+
 
 	// Add the X Axis
 	svg.append("g")		
@@ -260,7 +244,7 @@ var	svg = d3.select("body")
 		.call(yAxis);
   legend = svg.append("g")
     .attr("class","legend")
-    .attr("transform","translate(50,30)")
+    .attr("transform","translate(850,30)")
     .style("font-size","12px")
     .call(d3.legend)
 
