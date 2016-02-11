@@ -119,19 +119,7 @@ path {
 	</nav>
 
 <?php
-	function formatBytes($bytes, $precision = 2) { 
-    $units = array('B', 'KB', 'MB', 'GB', 'TB'); 
 
-    $bytes = max($bytes, 0); 
-    $pow = floor(($bytes ? log($bytes) : 0) / log(1024)); 
-    $pow = min($pow, count($units) - 1); 
-
-    // Uncomment one of the following alternatives
-    // $bytes /= pow(1024, $pow);
-    // $bytes /= (1 << (10 * $pow)); 
-
-    return round($bytes, $precision) . ' ' . $units[$pow]; 
-} 
 	$db = new SQLite3($selectedDB);
 	$query = $db->query('SELECT * FROM size');
 	$pre_ingest_data = array();
@@ -142,11 +130,11 @@ path {
 
 	while ($row = $query->fetchArray()) {
 		$date = $row[0];
-		$pre_ingest = formatBytes($row[1]);
-		$readyForIngest = formatBytes($row[3]);
-		$artworkBacklog = formatBytes($row[4]);
-		$preIngestIsilon = formatBytes($row[6]);
-		$readyForIngestIsilon = formatBytes($row[7]);
+		$pre_ingest = (((($row[1] / 1000) / 1000) / 1000) / 1000);
+		$readyForIngest = (((($row[3] / 1000) / 1000) / 1000) / 1000);
+		$artworkBacklog = (((($row[4] / 1000) / 1000) / 1000) / 1000);
+		$preIngestIsilon = (((($row[6] / 1000) / 1000) / 1000) / 1000);
+		$readyForIngestIsilon = (((($row[7] / 1000) / 1000) / 1000) / 1000);
 
 		$pre_ingest_data[] = array("date" => $date, "close" => $pre_ingest);
 		$readyForIngest_data[] = array("date" => $date, "close" => $readyForIngest);
