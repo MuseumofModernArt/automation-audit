@@ -98,7 +98,7 @@ path {
       <a href="#" class="brand-logo">MoMA DMRC tools</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li><a href="sass.html">Storage chart</a></li>
-        <li><a href="badges.html" class="active">Backlog chart</a></li>
+        <li class="active"><a href="badges.html">Backlog chart</a></li>
         <li><a href="collapsible.html">Automation-audit</a></li>
         <li><a href="collapsible.html">Naming utility</a></li>
       </ul>
