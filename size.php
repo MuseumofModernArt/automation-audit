@@ -7,20 +7,76 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Automation-audit</title>
 
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
 	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
 	<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 
 
+	<style type="text/css">
+		body { padding-top: 70px; 
+			margin: 50px;}
+		.label-as-badge {
+    border-radius: 1em;
+    font-size: 15px;
 
-<!-- Compiled and minified CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+}
 
-  <!-- Compiled and minified JavaScript -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
-          
-  <link rel="stylesheet" href="style.css">
 
+path { 
+  stroke: black;
+  stroke-width: 2;
+  fill: none;
+}
+
+.pre_ingest{
+  stroke: orange;
+  stroke-width: 2;
+  fill: none;
+ }
+
+ .run_component{
+  stroke: blue;
+  stroke-width: 2;
+  fill: none;
+ }
+
+ .readyForIngest{
+  stroke: green;
+  stroke-width: 2;
+  fill: none;
+ }
+
+ .artworkBacklog{
+  stroke: red;
+  stroke-width: 2;
+  fill: none;
+ }
+
+ .preIngestIsilon{
+ 	  stroke: rgb(0, 238, 117);
+  stroke-width: 2;
+  fill: none;
+ }
+ 
+.axis path,
+.axis line {
+	fill: none;
+	stroke: grey;
+	stroke-width: 1;
+	shape-rendering: crispEdges;
+}
+
+.legend rect {
+  fill:white;
+  stroke:black;
+  opacity:0.8;}
+
+	</style>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -30,19 +86,6 @@
     <![endif]-->
   </head>
   <body>
-
-<nav class="navbar-fixed">
-    <div class="nav-wrapper">
-      <a href="#" class="brand-logo">MoMA DMRC tools</a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li class="active"><a href="size/">Storage chart</a></li>
-        <li><a href="badges.html">Backlog chart</a></li>
-        <li><a href="../">Automation-audit</a></li>
-        <li><a href="./namer/">Naming utility</a></li>
-      </ul>
-    </div>
-  </nav>
-
 <script src="d3.legend.js"></script>
 
 
