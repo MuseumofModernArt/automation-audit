@@ -108,7 +108,7 @@
 		// Get real path for our folder
 		$rootPath = realpath("/var/www/automation-audit/namer/".$dirname);
 
-		print $rootPath
+		print $rootPath;
 
 		// Initialize archive object
 		$zip = new ZipArchive();
