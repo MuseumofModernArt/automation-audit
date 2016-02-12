@@ -108,6 +108,8 @@
 		// Get real path for our folder
 		$rootPath = realpath("/var/www/automation-audit/namer/".$dirname);
 
+		print $rootPath
+
 		// Initialize archive object
 		$zip = new ZipArchive();
 		$zip->open("/var/www/automation-audit/namer/".$objectnum.".zip", ZipArchive::CREATE | ZipArchive::OVERWRITE);
