@@ -106,7 +106,7 @@
 
 
 		// Get real path for our folder
-		$rootPath = realpath("/var/www/automation-audit/namer/".$dirname);
+		$rootPath = realpath("/var/www/automation-audit/namer/".$dirname."/");
 
 		print $rootPath;
 
