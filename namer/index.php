@@ -69,7 +69,7 @@
 
 
 
-
+ 
 
 
 	if (isset($_GET['objectnum'])){
@@ -98,6 +98,36 @@
     		echo "<div class='well col-md-offset-1'><h3><span class='glyphicon glyphicon-folder-open' aria-hidden='true'></span>&nbsp;&nbsp;".$componentFoldername."</h3></div>";
 		}
 
+
+		$rootPath = realpath('/var/www/automation-audit/namer/'.$dirname);
+
+		// Initialize archive object
+		$zip = new ZipArchive();
+		$zip->open('/var/www/automation-audit/namer/'.$objectnum.'.zip', ZipArchive::CREATE | ZipArchive::OVERWRITE);
+
+		// Create recursive directory iterator
+		/** @var SplFileInfo[] $files */
+		$files = new RecursiveIteratorIterator(
+		    new RecursiveDirectoryIterator($rootPath),
+		    RecursiveIteratorIterator::LEAVES_ONLY
+		);
+
+		foreach ($files as $name => $file)
+		{
+		    // Skip directories (they would be added automatically)
+		    if (!$file->isDir())
+		    {
+		        // Get real and relative path for current file
+		        $filePath = $file->getRealPath();
+		        $relativePath = substr($filePath, strlen($rootPath) + 1);
+
+		        // Add current file to archive
+		        $zip->addFile($filePath, $relativePath);
+		    }
+		}
+
+		// Zip archive will be created only after closing object
+		$zip->close();
 
 		
 	}
