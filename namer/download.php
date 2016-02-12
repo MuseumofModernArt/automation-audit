@@ -6,7 +6,7 @@
 if (isset($_GET['dirname'])){
 	$dirname = $_GET['dirname'];
 
-$file = './'.$dirname.'.zip';
+$file = './downloads/'.$dirname.'.zip';
 
 if (file_exists($file)) {
     header('Content-Description: File Transfer');

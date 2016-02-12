@@ -98,7 +98,7 @@
 		   } 
 		} 
 
-		$rmdir = glob('/var/www/automation-audit/namer/downloads/*')
+		$rmdir = glob('/var/www/automation-audit/namer/downloads/*');
 		rrmdir($rmdir);
     	unlink($rmdir);
 
