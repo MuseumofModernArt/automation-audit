@@ -1,10 +1,10 @@
 <?php
 
 
-if (isset($_GET['objectnum'])){
-	$objectnum = $_GET['objectnum'];
+if (isset($_GET['dirname'])){
+	$dirname = $_GET['dirname'];
 
-$file = './'.$objectnum.'.zip';
+$file = './'.$dirname.'.zip';
 
 if (file_exists($file)) {
     header('Content-Description: File Transfer');
@@ -16,6 +16,8 @@ if (file_exists($file)) {
     header('Content-Length: ' . filesize($file));
     readfile($file);
     exit;
+    unlink($dirname)
+    unlink($dirname.'.zip')
 }
 
 }

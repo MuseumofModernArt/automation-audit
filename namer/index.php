@@ -91,7 +91,7 @@
 
 		}
 
-		print "<a class='btn btn-default' href='download.php?objectnum=".$objectnum."' type='submit'>Download folders</a><div class='well'><h1><span class='glyphicon glyphicon-folder-open' aria-hidden='true'></span>&nbsp;&nbsp;".$dirname."</h1></div>";
+		print "<a class='btn btn-default' href='download.php?dirname=".$dirname."' type='submit'>Download folders</a><div class='well'><h1><span class='glyphicon glyphicon-folder-open' aria-hidden='true'></span>&nbsp;&nbsp;".$dirname."</h1></div>";
 
 		
 		foreach ($components as $component) {
@@ -150,7 +150,7 @@
 		    return $zip->close();
 		}
 
-		Zip("/var/www/automation-audit/namer/".$dirname, './'.$objectnum.'.zip');
+		Zip("/var/www/automation-audit/namer/".$dirname, './'.$dirname.'.zip');
 
 		
 	}
