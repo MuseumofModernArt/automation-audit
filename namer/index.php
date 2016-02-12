@@ -91,7 +91,7 @@
 
 		}
 
-		print "<a class='btn btn-default' href='download.php?dirname=".$dirname."' type='submit'>Download folders</a><br>";
+		print "<a class='btn btn-default' href='download.php?dirname=".$dirname."' type='submit'>Download folders</a><br><br>";
 
 		print "<div class='well'><h1><span class='glyphicon glyphicon-folder-open' aria-hidden='true'></span>&nbsp;&nbsp;".$dirname."</h1></div>";
 
