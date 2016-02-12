@@ -17,4 +17,6 @@ if (file_exists($file)) {
     readfile($file);
     exit;
 }
+
+}
 ?>
