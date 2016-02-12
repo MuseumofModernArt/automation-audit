@@ -167,7 +167,7 @@
 
 <script type="text/javascript">
 $('.downloadbtn').click(function() {
-	$('button').prop('disabled', true);
+	$('.downloadbtn').prop('disabled', true);
 });
 </script>
 </body>
