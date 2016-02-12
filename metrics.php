@@ -30,18 +30,6 @@
   </head>
   <body>
 
-<nav class="navbar-fixed">
-    <div class="nav-wrapper">
-      <a href="#" class="brand-logo">MoMA DMRC tools</a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="size/">Storage chart</a></li>
-        <li class="active"><a href="badges.html">Backlog chart</a></li>
-        <li><a href="../">Automation-audit</a></li>
-        <li><a href="./namer/">Naming utility</a></li>
-      </ul>
-    </div>
-  </nav>
-
 
 <script src="d3.legend.js"></script>
 
@@ -95,7 +83,7 @@
 // set dimensions of the graph
 
 var margin = { top: 30, right: 20, bottom: 30, left: 50 },
-    width = 1200 - margin.left - margin.right,
+    width = 700 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
 // parse the date format
