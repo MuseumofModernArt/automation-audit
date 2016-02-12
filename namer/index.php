@@ -100,6 +100,7 @@
 
 		$rmdir = glob('/var/www/automation-audit/namer/downloads/*');
 		array_map('rrmdir', $rmdir);
+		$rmdir = glob('/var/www/automation-audit/namer/downloads/*');
     	array_map('unlink', $rmdir);  
 
 		if (!file_exists("/var/www/automation-audit/namer/downloads/".$dirname)){
