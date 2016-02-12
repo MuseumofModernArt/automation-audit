@@ -150,7 +150,7 @@
 		    return $zip->close();
 		}
 
-		Zip("/var/www/automation-audit/namer/".$dirname, './compressed.zip')
+		Zip("/var/www/automation-audit/namer/".$dirname, './compressed.zip');
 
 		
 	}
