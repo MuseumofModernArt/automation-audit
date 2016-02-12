@@ -16,7 +16,7 @@ if (file_exists($file)) {
     header('Content-Length: ' . filesize($file));
     readfile($file);
     
-    unlink($dirname);
+    rmdir($dirname);
     unlink($dirname.'.zip');
     exit;
 }
