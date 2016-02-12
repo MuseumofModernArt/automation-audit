@@ -172,7 +172,7 @@
 		    return $zip->close();
 		}
 
-		Zip("/var/www/automation-audit/namer/".$dirname, './'.$dirname.'.zip');
+		Zip("/var/www/automation-audit/namer/downloads/".$dirname, './'.$dirname.'.zip');
 
 		
 	}
