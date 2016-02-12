@@ -68,23 +68,6 @@
 <?php 
 
 
-
- 
-
-
-	if (isset($_GET['objectnum'])){
-		$artwork = $_GET['objectnum'];
-		$url = file_get_contents('http://vmsqlsvcs.museum.moma.org/TMSAPI/TmsObjectSvc/TmsObjects.svc/GetTombstoneDataRest/Object/'.$artwork);
-		$json = json_decode($url, true);
-		$title = $json["GetTombstoneDataRestResult"]["Title"];
-		$artist = $json["GetTombstoneDataRestResult"]["AlphaSort"];
-		$objectnum = $json["GetTombstoneDataRestResult"]["ObjectNumber"];
-		$objectid = $json["GetTombstoneDataRestResult"]["ObjectID"];
-		$components = json_decode($json["GetTombstoneDataRestResult"]["Components"], true);
-		$dirname = $artist."---".$title."---".$objectnum."---".$objectid;
-
-		$dirname = preg_replace('/\s+/', '_', $dirname);
-
 		function rrmdir($dir) { 
 		   if (is_dir($dir)) { 
 		     $objects = scandir($dir); 
@@ -102,6 +85,25 @@
 		array_map('rrmdir', $rmdir);
 		$rmdir = glob('/var/www/automation-audit/namer/downloads/*');
     	array_map('unlink', $rmdir);  
+
+
+ 
+
+
+	if (isset($_GET['objectnum'])){
+		$artwork = $_GET['objectnum'];
+		$url = file_get_contents('http://vmsqlsvcs.museum.moma.org/TMSAPI/TmsObjectSvc/TmsObjects.svc/GetTombstoneDataRest/Object/'.$artwork);
+		$json = json_decode($url, true);
+		$title = $json["GetTombstoneDataRestResult"]["Title"];
+		$artist = $json["GetTombstoneDataRestResult"]["AlphaSort"];
+		$objectnum = $json["GetTombstoneDataRestResult"]["ObjectNumber"];
+		$objectid = $json["GetTombstoneDataRestResult"]["ObjectID"];
+		$components = json_decode($json["GetTombstoneDataRestResult"]["Components"], true);
+		$dirname = $artist."---".$title."---".$objectnum."---".$objectid;
+
+		$dirname = preg_replace('/\s+/', '_', $dirname);
+
+
 
 		if (!file_exists("/var/www/automation-audit/namer/downloads/".$dirname)){
 
