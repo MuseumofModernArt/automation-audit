@@ -1,5 +1,10 @@
 <?php
-$file = 'monkey.gif';
+
+
+if (isset($_GET['objectnum'])){
+	$objectnum = $_GET['objectnum'];
+
+$file = './'.$objectnum.'.zip';
 
 if (file_exists($file)) {
     header('Content-Description: File Transfer');
