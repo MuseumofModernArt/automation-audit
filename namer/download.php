@@ -1,18 +1,7 @@
 <?php
 
 
-function rrmdir($dir) { 
-   if (is_dir($dir)) { 
-     $objects = scandir($dir); 
-     foreach ($objects as $object) { 
-       if ($object != "." && $object != "..") { 
-         if (filetype($dir."/".$object) == "dir") rrmdir($dir."/".$object); else unlink($dir."/".$object); 
-       } 
-     } 
-     reset($objects); 
-     rmdir($dir); 
-   } 
-} 
+
 
 if (isset($_GET['dirname'])){
 	$dirname = $_GET['dirname'];
@@ -29,8 +18,7 @@ if (file_exists($file)) {
     header('Content-Length: ' . filesize($file));
     readfile($file);
     
-    rrmdir($dirname);
-    unlink($dirname.'.zip');
+    
     exit;
 }
 

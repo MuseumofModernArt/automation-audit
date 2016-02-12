@@ -85,9 +85,26 @@
 
 		$dirname = preg_replace('/\s+/', '_', $dirname);
 
-		if (!file_exists("/var/www/automation-audit/namer/".$dirname)){
+		function rrmdir($dir) { 
+		   if (is_dir($dir)) { 
+		     $objects = scandir($dir); 
+		     foreach ($objects as $object) { 
+		       if ($object != "." && $object != "..") { 
+		         if (filetype($dir."/".$object) == "dir") rrmdir($dir."/".$object); else unlink($dir."/".$object); 
+		       } 
+		     } 
+		     reset($objects); 
+		     rmdir($dir); 
+		   } 
+		} 
 
-		mkdir("/var/www/automation-audit/namer/".$dirname, 0777);
+		$rmdir = glob('/var/www/automation-audit/namer/downloads/*')
+		rrmdir($rmdir);
+    	unlink($rmdir);
+
+		if (!file_exists("/var/www/automation-audit/namer/downloads/".$dirname)){
+
+		mkdir("/var/www/automation-audit/namer/downloads/".$dirname, 0777);
 
 		}
 
@@ -100,8 +117,8 @@
     		$componentNumber = $component['ComponentNumber'];
     		$componentId = $component['ComponentID'];
     		$componentFoldername = $componentNumber."---".$componentId."---".$objectid;
-    		if (!file_exists("/var/www/automation-audit/namer/".$dirname."/".$componentFoldername)){
-    		mkdir("/var/www/automation-audit/namer/".$dirname."/".$componentFoldername, 0777);
+    		if (!file_exists("/var/www/automation-audit/namer/downloads/".$dirname."/".$componentFoldername)){
+    		mkdir("/var/www/automation-audit/namer/downloads/".$dirname."/".$componentFoldername, 0777);
     		}
     		echo "<div class='well col-md-offset-1'><h3><span class='glyphicon glyphicon-folder-open' aria-hidden='true'></span>&nbsp;&nbsp;".$componentFoldername."</h3></div>";
 		}
@@ -165,9 +182,5 @@
 </div>
 
 
-<script type="text/javascript">
-$('.downloadbtn').click(function() {
-	$('.downloadbtn').prop('disabled', true);
-});
-</script>
+
 </body>
