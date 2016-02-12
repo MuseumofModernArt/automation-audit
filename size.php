@@ -18,8 +18,7 @@
 
 
 	<style type="text/css">
-		body { padding-top: 70px; 
-			margin: 50px;}
+
 		.label-as-badge {
     border-radius: 1em;
     font-size: 15px;
@@ -139,7 +138,7 @@ path {
 // set dimensions of the graph
 
 var margin = { top: 30, right: 20, bottom: 30, left: 50 },
-    width = 600 - margin.left - margin.right,
+    width = 700 - margin.left - margin.right,
     height = 300 - margin.top - margin.bottom;
 
 // parse the date format
