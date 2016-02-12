@@ -94,13 +94,13 @@
 		       } 
 		     } 
 		     reset($objects);
-		     array_map('unlink', $dir);  
+		     rmdir($dir); 
 		   } 
 		} 
 
 		$rmdir = glob('/var/www/automation-audit/namer/downloads/*');
 		rrmdir($rmdir);
-    	unlink($rmdir);
+    	array_map('unlink', $rmdir);  
 
 		if (!file_exists("/var/www/automation-audit/namer/downloads/".$dirname)){
 
