@@ -105,11 +105,12 @@
 		}
 
 
-		$rootPath = realpath('/var/www/automation-audit/namer/'.$dirname);
+		// Get real path for our folder
+		$rootPath = realpath("/var/www/automation-audit/namer/".$dirname);
 
 		// Initialize archive object
 		$zip = new ZipArchive();
-		$zip->open('/var/www/automation-audit/namer/'.$objectnum.'.zip', ZipArchive::CREATE | ZipArchive::OVERWRITE);
+		$zip->open("/var/www/automation-audit/namer/".$objectnum.".zip", ZipArchive::CREATE | ZipArchive::OVERWRITE);
 
 		// Create recursive directory iterator
 		/** @var SplFileInfo[] $files */
