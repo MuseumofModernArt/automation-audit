@@ -11,6 +11,29 @@
 
     <title>MoMA DRMC dashboard</title>
 
+
+    <!--
+
+        pseudocode for DRMC dashboard
+
+        pipeline widget (every minute do this)
+            open connection to sqlite db
+            what is the current unit's UUID?
+            what is the current unit's path?
+                get the object ID, component number, and component ID
+            talk to Archivematica API
+                what microservice is it currently on?
+            talk to TMS API object endpoint
+                what is the title?
+                who is the artist?
+            talk to TMS API component endpoint
+                what is the component name?
+
+-->
+
+
+
+
     <!-- Bootstrap Core CSS -->
 <!--     <link href="css/bootstrap.min.css" rel="stylesheet">
  -->
@@ -54,10 +77,13 @@ $object_endpoint = 'http://vmsqlsvcs.museum.moma.org/TMSAPI/TmsObjectSvc/TmsObje
                 <div class="col-lg-4">
                     <div class="panel panel-primary">
 
-                        <?php $objectNumber = '451.2003'; 
 
+        <?php
 
+        $user = 'bfino';
+        $apiKey = '47a5b3791ef9dad6bdfaf56fe27ff78b71c857cb';
 
+        $objectNumber = '560.1984'; 
 
         $url = file_get_contents($object_endpoint.$objectNumber);
         $json = json_decode($url, true);
@@ -65,7 +91,8 @@ $object_endpoint = 'http://vmsqlsvcs.museum.moma.org/TMSAPI/TmsObjectSvc/TmsObje
         $artist = $json["GetTombstoneDataRestResult"]["AlphaSort"];
         $objectnum = $json["GetTombstoneDataRestResult"]["ObjectNumber"];
         $objectid = $json["GetTombstoneDataRestResult"]["ObjectID"];
-?>
+        
+        ?>
 
 
 
