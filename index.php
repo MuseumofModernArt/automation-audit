@@ -93,11 +93,18 @@ Permissions on the DB need to be:
   <body>
 <?php 
 
-	if (isset($_GET['db'])){
-		$selectedDB = '/usr/lib/archivematica/automation-tools/transfers/'.$_GET['db'];
+	if (isset($_GET['pipeline'])){
+		$selectedPipeline = $_GET['pipeline'];
 	}
 	else {
-		$selectedDB = '/usr/lib/archivematica/automation-tools/transfers/transfers.db';
+		$selectedPipeline = 'automation-tools';
+	};
+
+	if (isset($_GET['db'])){
+		$selectedDB = '/usr/lib/archivematica/'.$selectedPipeline.'/transfers/'.$_GET['db'];
+	}
+	else {
+		$selectedDB = '/usr/lib/archivematica/'.$selectedPipeline.'/transfers/transfers.db';
 	};
 
 	?>
@@ -121,6 +128,16 @@ Permissions on the DB need to be:
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		      <ul class="nav navbar-nav">
 				<li> </li>
+
+				<li class="dropdown">
+				  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">select Pipeline<span class="caret"></span></a>
+				  <ul class="dropdown-menu" role="menu">
+				    <li><a href='?selectedPipeline=automation-tools'> Pipeline 1 (VNX unbagged) </a></li>
+				    <li><a href='?selectedPipeline=automation-tools-2'> Pipeline 2 (VNX bagged) </a></li>
+				    <li><a href='?selectedPipeline=automation-tools-3'> Pipeline 1 (Isilon bagged) </a></li>
+				  </ul>
+				</li>
+
 				<li class="dropdown">
 				  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">select database<span class="caret"></span></a>
 				  <ul class="dropdown-menu" role="menu">
