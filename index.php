@@ -97,14 +97,14 @@ Permissions on the DB need to be:
 		$selectedPipeline = $_GET['pipeline'];
 	}
 	else {
-		$selectedPipeline = 'automation-tools';
+		$selectedPipeline = 'transfers-3.db';
 	};
 
 	if (isset($_GET['db'])){
-		$selectedDB = '/usr/lib/archivematica/'.$selectedPipeline.'/transfers/'.$_GET['db'];
+		$selectedDB = '/var/archivematica/automation-tools'.$_GET['db'];
 	}
 	else {
-		$selectedDB = '/usr/lib/archivematica/'.$selectedPipeline.'/transfers/transfers.db';
+		$selectedDB = '/var/archivematica/automation-tools/transfers-3.db';
 	};
 
 	?>
@@ -132,22 +132,22 @@ Permissions on the DB need to be:
 				<li class="dropdown">
 				  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">select Pipeline<span class="caret"></span></a>
 				  <ul class="dropdown-menu" role="menu">
-				    <li><a href='?selectedPipeline=automation-tools'> Pipeline 1 (VNX unbagged) </a></li>
-				    <li><a href='?selectedPipeline=automation-tools-2'> Pipeline 2 (VNX bagged) </a></li>
-				    <li><a href='?selectedPipeline=automation-tools-3'> Pipeline 1 (Isilon bagged) </a></li>
+				    <li><a href='?selectedPipeline=transfers-1.db'> Pipeline 1 (VNX unbagged) </a></li>
+				    <li><a href='?selectedPipeline=transfers-2.db'> Pipeline 2 (VNX bagged) </a></li>
+				    <li><a href='?selectedPipeline=transfers-3.db'> Pipeline 1 (Isilon bagged) </a></li>
 				  </ul>
 				</li>
 
-				<li class="dropdown">
+		<!-- 		<li class="dropdown">
 				  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">select database<span class="caret"></span></a>
-				  <ul class="dropdown-menu" role="menu">
+				  <ul class="dropdown-menu" role="menu"> -->
 				  	<?php
-						foreach (glob("/usr/lib/archivematica/automation-tools/transfers/transfers.db*") as $filename) {
-						    echo "<li><a href='?db=$filename'> $filename </a></li>";
-						}
+						// foreach (glob("/usr/lib/archivematica/automation-tools/transfers/transfers.db*") as $filename) {
+						//     echo "<li><a href='?db=$filename'> $filename </a></li>";
+						// }
 				  	?>
-				  </ul>
-				</li>
+			<!-- 	  </ul>
+				</li> -->
 		      </ul>
 		      <ul class="nav navbar-nav navbar-right">
 		      	<li><a href=""><span class="glyphicon glyphicon-user" aria-hidden="true"></span><span class="user"><?php echo " {$_SERVER['PHP_AUTH_USER']}"; ?></span></a></li>
