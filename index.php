@@ -267,9 +267,6 @@ Permissions on the DB need to be:
 
 		$db->close();
 		unset($db);
-		echo "Total automated data: <span class='converter'>".$totalSize."</span>";
-		echo "Stuff to delete: <span class='converter'>".$remainingForDeletion."</span>";
-		echo "Stuff already deleted: <span class='converter'>".$hasBeenDeleted."</span>"
 ?>
 
 
