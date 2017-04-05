@@ -263,6 +263,8 @@ Permissions on the DB need to be:
 
 
 	};
+
+	echo '</tbody></table>';
 }
 
 		$db->close();
