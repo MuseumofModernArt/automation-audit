@@ -112,12 +112,12 @@ Permissions on the DB need to be:
 	$page = 1;
 
 	// Update pagination values from request
-	if (isset($_GET['limit']) && is_numeric($_GET['limit']))
+	if (isset($_GET['limit']) && ctype_digit($_GET['limit']))
 	{
 		$limit = $_GET['limit'];
 	}
 
-	if (isset($_GET['page']) && is_numeric($_GET['page']))
+	if (isset($_GET['page']) && ctype_digit($_GET['page']))
 	{
 		$page = $_GET['page'];
 	}
