@@ -188,7 +188,11 @@ Permissions on the DB need to be:
 	}
 
 	// Get results with pagination
-	$query = $db->query('SELECT * FROM unit LIMIT ' . $skip . ', ' . $limit);
+	$statement = $db->prepare('SELECT * FROM unit LIMIT :skip, :limit');
+	$statement->bindValue(':skip', $skip, SQLITE3_INTEGER);
+	$statement->bindValue(':limit', $limit, SQLITE3_INTEGER);
+	$results = $statement->execute();
+
 	echo '<table class="table table-striped">
 		      <thead>
 		        <tr>
@@ -206,7 +210,7 @@ Permissions on the DB need to be:
 		      </thead>
 		      <tbody>';
 
-	while ($row = $query->fetchArray()) {
+	while ($row = $results->fetchArray()) {
 		$id = $row[0];
 		$uuid = $row[1];
 		$path = $row[2];
