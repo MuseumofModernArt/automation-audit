@@ -107,6 +107,23 @@ Permissions on the DB need to be:
 		$selectedDB = '/var/archivematica/automation-tools/transfers-3.db';
 	};
 
+	// Pagination defaults
+	$limit = 20;
+	$page = 1;
+
+	// Update pagination values from request
+	if (isset($_GET['limit']) && is_numeric($_GET['limit']))
+	{
+		$limit = $_GET['limit'];
+	}
+
+	if (isset($_GET['page']) && is_numeric($_GET['page']))
+	{
+		$page = $_GET['page'];
+	}
+
+	$skip = ($page - 1) * $limit;
+
 	?>
 
 <img class="exlposion" src="explosion-1.gif">
@@ -159,7 +176,19 @@ Permissions on the DB need to be:
 
 <?php
 	$db = new SQLite3($selectedDB);
-	$query = $db->query('SELECT * FROM unit');
+
+	// Get total rows in the unit table
+	$total = $db->querySingle('SELECT COUNT(*) FROM unit');
+
+	// End if there is no results
+	if (!$total)
+	{
+		echo 'No results';
+		exit;
+	}
+
+	// Get results with pagination
+	$query = $db->query('SELECT * FROM unit LIMIT ' . $skip . ', ' . $limit);
 	echo '<table class="table table-striped">
 		      <thead>
 		        <tr>
@@ -265,6 +294,72 @@ Permissions on the DB need to be:
 	};
 
 	echo '</tbody></table>';
+
+	// Create and add pagination if needed
+	if ($total > $limit)
+	{
+		$availablePages = intval($total / $limit);
+
+		if ($total % $limit !== 0)
+		{
+			$availablePages += 1;
+		}
+
+		$pagination = array();
+
+		if ($page == 1)
+		{
+			$pagination[] = array(
+				'text' => '<span aria-hidden="true">&laquo;</span>',
+				'link' => '#/',
+				'class' => 'disabled'
+			);
+		}
+		else
+		{
+			$pagination[] = array(
+				'text' => '<span aria-hidden="true">&laquo;</span>',
+				'link' => '?page=' . ($page - 1) . '&limit=' . $limit,
+				'class' => ''
+			);
+		}
+
+		for ($i = 1; $i <= $availablePages; $i++)
+		{
+			$pagination[] = array(
+				'text' => $i,
+				'link' => '?page=' . $i . '&limit=' . $limit,
+				'class' => $i == $page ? 'active' : ''
+			);
+		}
+
+		if ($page == $availablePages)
+		{
+			$pagination[] = array(
+				'text' => '<span aria-hidden="true">&raquo;</span>',
+				'link' => '#/',
+				'class' => 'disabled'
+			);
+		}
+		else
+		{
+			$pagination[] = array(
+				'text' => '<span aria-hidden="true">&raquo;</span>',
+				'link' => '?page=' . ($page + 1) . '&limit=' . $limit,
+				'class' => ''
+			);
+		}
+
+		echo '<div class="text-center"><ul class="pagination">';
+
+		foreach ($pagination as $page)
+		{
+			echo '<li class="' . $page['class'] . '"><a href="' . $page['link'] . '">' . $page['text'] . '</a></li>';
+		}
+
+		echo '</ul></div>';
+	}
+
 }
 
 		$db->close();
