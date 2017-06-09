@@ -1,13 +1,16 @@
 <?php
-if (!isset($_SERVER['PHP_AUTH_USER'])) {
+
+$binderUsername = $_SERVER['PHP_AUTH_USER'];
+$binderPassword = $_SERVER['PHP_AUTH_PW'];
+
+if (!isset($binderUsername) || !isset($binderPassword)) {
     header('WWW-Authenticate: Basic realm="My Realm"');
     header('HTTP/1.0 401 Unauthorized');
     echo 'Sorry, you have to log in.';
     exit;
-} else {
-    $binderUsername = $_SERVER['PHP_AUTH_USER'];
-    $binderPassword = $_SERVER['PHP_AUTH_PW'];
-    $context = stream_context_create(array(
+}
+
+$context = stream_context_create(array(
     'http' => array(
         'header'  => "Authorization: Basic " . base64_encode("$binderUsername:$binderPassword")
     )
@@ -83,19 +86,21 @@ Permissions on the DB need to be:
 
 
 	<style type="text/css">
-		body { padding-top: 70px; }
+		body {
+			padding-top: 70px;
+		}
+
 		.label-as-badge {
-    border-radius: 1em;
-    font-size: 15px;
+		    border-radius: 1em;
+		    font-size: 15px;
+		}
 
-}
-
-	.exlposion{
-		position: fixed;
-		bottom: 0;
-		right: 0;
-		z-index: 999;
-	}
+		.exlposion{
+			position: fixed;
+			bottom: 0;
+			right: 0;
+			z-index: 999;
+		}
 	</style>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -106,6 +111,7 @@ Permissions on the DB need to be:
     <![endif]-->
   </head>
   <body>
+
 <?php 
 
 	if (isset($_GET['pipeline'])){
@@ -141,7 +147,7 @@ Permissions on the DB need to be:
 
 	?>
 
-<img class="exlposion" src="explosion-1.gif">
+	<img class="exlposion" src="explosion-1.gif">
 
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container-fluid">
@@ -187,9 +193,11 @@ Permissions on the DB need to be:
 		    </div><!-- /.navbar-collapse -->
 		  </div><!-- /.container-fluid -->
 	</nav>
-<h2><?php echo $selectedDB; ?></h2>
+
+	<h2><?php echo $selectedDB; ?></h2>
 
 <?php
+
 	$db = new SQLite3($selectedDB);
 
 	// Get total rows in the unit table
@@ -294,23 +302,19 @@ Permissions on the DB need to be:
 			$hasBeenDeleted = $hasBeenDeleted+$binderAIPsize;
 		};
 
-		
+		echo '<tr class="'.$rowcolor.'">
+			<th>'.$id.'</th>
+			<td>'.$path.'</td>
+			<td>'.$unitType.'</td>
+			<td>'.$status.'</td>
+			<td>'.$uuid.'</td>
+			<td><span class="converter">'.$binderAIPsize.'</span></td>
+			<td>'.$storageservice.'</td>
+			<td>'.$binderstatus.'</td>
+			<td>'.$deletebutton.'</td>
+		';
 
-	echo '<tr class="'.$rowcolor.'">
-		<th>'.$id.'</th>
-		<td>'.$path.'</td>
-		<td>'.$unitType.'</td>
-		<td>'.$status.'</td>
-		<td>'.$uuid.'</td>
-		<td><span class="converter">'.$binderAIPsize.'</span></td>
-		<td>'.$storageservice.'</td>
-		<td>'.$binderstatus.'</td>
-		<td>'.$deletebutton.'</td>
-	';
-
-
-
-	};
+	}
 
 	echo '</tbody></table>';
 
@@ -379,20 +383,18 @@ Permissions on the DB need to be:
 		echo '</ul></div>';
 	}
 
-}
-
-		$db->close();
-		unset($db);
+	$db->close();
+	unset($db);
 ?>
 
-
 </body>
+
 <script src="rm.js"></script>
 <script src="jquery.filesize.min.js"></script>
 <script>
-$(function() {
-$(".converter").filesize();
-});
+	$(function() {
+		$(".converter").filesize();
+	});
 </script>
 
 
