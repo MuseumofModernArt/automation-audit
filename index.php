@@ -13,6 +13,21 @@ if (!isset($_SERVER['PHP_AUTH_USER'])) {
     )
 )); 
 
+$ssUser = $_ENV['ARCHIVEMATICA_SS_USER'];
+$ssApiKey = $_ENV['ARCHIVEMATICA_SS_API_KEY'];
+
+if (!isset($ssUser) || !isset($ssApiKey)) {
+    header('HTTP/1.0 403 Forbidden');
+    echo 'Sorry, you have to set the SS env. vars.';
+    exit;
+}
+
+stream_context_set_default(array(
+       'http' => array(
+           'header' => sprintf('Authorization: ApiKey %s:%s', $ssUser, $ssApiKey)
+       )
+));
+
 ?>
 
 <!--
