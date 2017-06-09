@@ -194,7 +194,7 @@ Permissions on the DB need to be:
 		  </div><!-- /.container-fluid -->
 	</nav>
 
-	<h2><?php echo $selectedDB; ?></h2>
+	<h2 id="database"><?php echo $selectedDB; ?></h2>
 
 <?php
 
@@ -396,8 +396,3 @@ Permissions on the DB need to be:
 		$(".converter").filesize();
 	});
 </script>
-
-
-
-
-

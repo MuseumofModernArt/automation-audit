@@ -12,11 +12,12 @@ $('.rm').click(
     function(){
         var id = $(this).attr('id');
         var user = $('.user').text();
+        var database = $('#database').text();
         var button = this;
         $.ajax({
             url: "rm.php",
             type: "POST",
-            data: {"uuid": id, "user": user},
+            data: {"uuid": id, "user": user, "database": database},
             success: function(data){
                 console.log(data);
                 $(button).hide();
@@ -30,4 +31,3 @@ $('.rm').click(
 });
 
 });
-
